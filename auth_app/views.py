@@ -43,24 +43,23 @@ class VerifyOTPView(GenericAPIView):
             otp_code = serializer.validated_data['otp_code']
 
             try:
-                # Retrieve the latest OTP for the user
                 otp = OTP.objects.filter(user=user).latest('created_at')
                 
-                # Check if OTP is valid and not expired (expiry logic can be added)
+                
                 if otp.otp_code == otp_code:
-                    if otp.is_expired():  # You need to implement this method on OTP model
+                    if otp.is_expired():  
                         return Response({"error": "OTP expired"}, status=status.HTTP_400_BAD_REQUEST)
 
-                    # Set the user as active once OTP is correct
+                    
                     user.is_active = True
                     user.save()
 
-                    # Optionally, create and return the token here if you're using authentication tokens
+                    
                     token, created = Token.objects.get_or_create(user=user)
 
                     return Response({
                         "message": "OTP verified successfully",
-                        "token": token.key  # Optionally include the auth token
+                        "token": token.key  
                     }, status=status.HTTP_200_OK)
 
                 return Response({"error": "Invalid OTP"}, status=status.HTTP_400_BAD_REQUEST)
