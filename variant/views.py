@@ -13,3 +13,8 @@ class listVariant(generics.ListAPIView):
    queryset=variant.objects.all()
    serializer_class=variantSerializer
    permission_classes= [IsAuthenticated]
+
+class RetrieveUpdateDestroyProducts(generics.RetrieveUpdateDestroyAPIView):
+   queryset=variant.objects.all()
+   serializer_class=variantSerializer
+   permission_classes= [IsAuthenticated]

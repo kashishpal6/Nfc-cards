@@ -5,7 +5,7 @@ from rest_framework import status
 from django.core.mail import send_mail
 from django.contrib.auth import get_user_model
 from .models import OTP
-from rest_framework.authtoken.models import Token
+# from rest_framework.authtoken.models import Token
 
 User = get_user_model()
 
@@ -55,11 +55,12 @@ class VerifyOTPView(GenericAPIView):
                     user.save()
 
                     
-                    token, created = Token.objects.get_or_create(user=user)
+                    # token, created = Token.objects.get_or_create(user=user)
 
                     return Response({
                         "message": "OTP verified successfully",
-                        "token": token.key  
+                        
+                        # "token": token.key  
                     }, status=status.HTTP_200_OK)
 
                 return Response({"error": "Invalid OTP"}, status=status.HTTP_400_BAD_REQUEST)

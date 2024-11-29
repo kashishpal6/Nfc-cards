@@ -13,3 +13,8 @@ class listProducts(generics.ListAPIView):
    queryset=Products.objects.all()
    serializer_class=productSerializer
    permission_classes= [IsAuthenticated]
+
+class RetrieveUpdateDestroyProducts(generics.RetrieveUpdateDestroyAPIView):
+   queryset=Products.objects.all()
+   serializer_class=productSerializer
+   permission_classes= [IsAuthenticated]

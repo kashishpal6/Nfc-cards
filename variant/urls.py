@@ -1,9 +1,10 @@
 from django.urls import path
-from variant.views import createVariant,listVariant
+from variant.views import createVariant,listVariant,RetrieveUpdateDestroyProducts
 
 
 urlpatterns = [
    
-    path('create/',createVariant.as_view(),name="create"),
-    path('list/',listVariant.as_view(),name="list"),
+    path('createVariant/',createVariant.as_view(),name="createVariant"),
+    path('listVariant/',listVariant.as_view(),name="listVariant"),
+    path('RetrieveUpdateDestroyProducts/',RetrieveUpdateDestroyProducts.as_view(),name="RetrieveUpdateDestroyProducts"),
 ]
