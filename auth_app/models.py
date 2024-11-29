@@ -1,9 +1,10 @@
+from django.utils import timezone
+from datetime import timedelta
 from django.db import models
-from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AbstractUser,BaseUserManager
 import random
 from django.utils.timezone import now
-
+from django.contrib.auth import get_user_model
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, phone_number, email=None, password=None, **extra_fields):
@@ -40,17 +41,31 @@ class CustomUser(AbstractUser):
     USERNAME_FIELD = 'phone_number'  
     REQUIRED_FIELDS = [] 
 
-
-
+User = get_user_model()
 
 class OTP(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE) 
+    user = models.OneToOneField(User, on_delete=models.CASCADE)  
     otp_code = models.CharField(max_length=6)
     created_at = models.DateTimeField(auto_now_add=True)
 
-
+    
     def generate_otp(self):
         self.otp_code = str(random.randint(100000, 999999))
         self.created_at = now()
+        self.expires_at = timezone.now() + timedelta(minutes=5)  
         self.save()
+
+    def is_expired(self):
+        return timezone.now() > self.created_at + timedelta(minutes=5)
+
+
+    def __str__(self):
+         return f"OTP for {self.user.username}"
+    
+
+
+
+
+
+
 

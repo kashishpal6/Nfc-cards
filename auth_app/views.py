@@ -1,4 +1,4 @@
-from .serializers import SignupSerializer
+from .serializers import SignupSerializer, OTPSerializer
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -6,7 +6,6 @@ from django.core.mail import send_mail
 from django.contrib.auth import get_user_model
 from .models import OTP
 from rest_framework.authtoken.models import Token
-from .serializers import SignupSerializer, OTPSerializer
 
 User = get_user_model()
 
@@ -15,40 +14,60 @@ class SignupView(GenericAPIView):
 
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
+
         if serializer.is_valid():
             user = serializer.save()
             otp = OTP.objects.create(user=user)
-            otp.generate_otp()
+            otp.generate_otp() 
+            
             send_mail(
                 subject="Your OTP Code",
                 message=f"Your OTP code is {otp.otp_code}",
-                from_email="kashish.palkurmato@gmail.com",
+                from_email="your_email@gmail.com", 
                 recipient_list=[user.email],
             )
             return Response({"message": "OTP sent to your email"}, status=status.HTTP_201_CREATED)
+        
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
- 
-
 
 
 class VerifyOTPView(GenericAPIView):
     serializer_class = OTPSerializer
 
     def post(self, request, *args, **kwargs):
+        # Get data from the request
         serializer = self.get_serializer(data=request.data)
+        
         if serializer.is_valid():
-            email = serializer.validated_data['email']
+            user = serializer.validated_data['user']
             otp_code = serializer.validated_data['otp_code']
-            try:
-                user = User.objects.get(email=email)
-                otp = OTP.objects.filter(user=user).latest('created_at')
 
+            try:
+                # Retrieve the latest OTP for the user
+                otp = OTP.objects.filter(user=user).latest('created_at')
+                
+                # Check if OTP is valid and not expired (expiry logic can be added)
                 if otp.otp_code == otp_code:
+                    if otp.is_expired():  # You need to implement this method on OTP model
+                        return Response({"error": "OTP expired"}, status=status.HTTP_400_BAD_REQUEST)
+
+                    # Set the user as active once OTP is correct
                     user.is_active = True
                     user.save()
-                    return Response({"message": "OTP verified successfully"}, status=status.HTTP_200_OK)
+
+                    # Optionally, create and return the token here if you're using authentication tokens
+                    token, created = Token.objects.get_or_create(user=user)
+
+                    return Response({
+                        "message": "OTP verified successfully",
+                        "token": token.key  # Optionally include the auth token
+                    }, status=status.HTTP_200_OK)
+
                 return Response({"error": "Invalid OTP"}, status=status.HTTP_400_BAD_REQUEST)
-            except User.DoesNotExist:
-                return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
+            
+            except OTP.DoesNotExist:
+                return Response({"error": "OTP not found for user"}, status=status.HTTP_404_NOT_FOUND)
+
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 

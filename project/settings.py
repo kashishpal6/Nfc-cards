@@ -25,7 +25,8 @@ SECRET_KEY = 'django-insecure-j5bx60^m=7lazcga2kk#4ewpwx+5n(-p@c41%5h5(u%33ql=%l
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*','kashishpal6.pythonanywhere.com']
+
 
 
 # Application definition
@@ -39,11 +40,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'auth_app',
     'rest_framework',
+    'rest_framework.authtoken',
     'contact_page',
     'subscription',
     'products',
     'variant'
 ]
+    
 AUTH_USER_MODEL = 'auth_app.CustomUser'
 
 
@@ -147,3 +150,9 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'kashish.palkurmato@gmail.com' 
 EMAIL_HOST_PASSWORD = 'cypbmchzyxqogmds'
 
+
+
+
+
+
+# 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

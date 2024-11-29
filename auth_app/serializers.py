@@ -15,9 +15,29 @@ class SignupSerializer(serializers.ModelSerializer):
 
 
 class OTPSerializer(serializers.Serializer):
-    class Meta:
-        model = OTP
-        fields = ['email','otp_code']
+    email = serializers.EmailField()
+    otp_code = serializers.CharField(max_length=6)
+
+    def validate(self, data):
+        email = data.get('email')
+        otp_code = data.get('otp_code')
+
+        # Get user from email
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            raise serializers.ValidationError("User not found")
+
+        # Get the latest OTP for the user
+        otp = OTP.objects.filter(user=user).latest('created_at')
+
+        if otp.otp_code != otp_code:
+            raise serializers.ValidationError("Invalid OTP")
+        
+        # Attach the user to the validated data to pass it to the view
+        data['user'] = user
+        return data
+
 
 
 
