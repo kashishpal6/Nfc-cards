@@ -149,10 +149,3 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'kashish.palkurmato@gmail.com' 
 EMAIL_HOST_PASSWORD = 'cypbmchzyxqogmds'
-
-
-
-
-
-
-# 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
