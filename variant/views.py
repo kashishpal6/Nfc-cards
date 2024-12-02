@@ -12,9 +12,19 @@ class createVariant(generics.CreateAPIView):
 class listVariant(generics.ListAPIView):
    queryset=variant.objects.all()
    serializer_class=variantSerializer
+   permission_classes= [AllowAny]
+
+class RetrieveUpdateDestroyVariant(generics.RetrieveAPIView):
+   queryset=variant.objects.all()
+   serializer_class=variantSerializer
+   permission_classes= [AllowAny]
+
+class UpdateVariant(generics.UpdateAPIView):
+   queryset=variant.objects.all()
+   serializer_class=variantSerializer
    permission_classes= [IsAuthenticated]
 
-class RetrieveUpdateDestroyVariant(generics.RetrieveUpdateDestroyAPIView):
+class DestroyVariant(generics.DestroyAPIView):
    queryset=variant.objects.all()
    serializer_class=variantSerializer
    permission_classes= [IsAuthenticated]
