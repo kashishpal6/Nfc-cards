@@ -14,7 +14,7 @@ class listVariant(generics.ListAPIView):
    serializer_class=variantSerializer
    permission_classes= [AllowAny]
 
-class RetrieveUpdateDestroyVariant(generics.RetrieveAPIView):
+class RetrieveVariant(generics.RetrieveAPIView):
    queryset=variant.objects.all()
    serializer_class=variantSerializer
    permission_classes= [AllowAny]
