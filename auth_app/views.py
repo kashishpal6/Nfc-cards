@@ -5,7 +5,7 @@ from rest_framework import status
 from django.core.mail import send_mail
 from django.contrib.auth import get_user_model
 from .models import OTP
-# from rest_framework.authtoken.models import Token
+from rest_framework_simplejwt.tokens import RefreshToken
 
 User = get_user_model()
 
@@ -30,7 +30,6 @@ class SignupView(GenericAPIView):
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
 class VerifyOTPView(GenericAPIView):
     serializer_class = OTPSerializer
 
@@ -53,14 +52,13 @@ class VerifyOTPView(GenericAPIView):
                     
                     user.is_active = True
                     user.save()
-
+                    refresh = RefreshToken.for_user(user)
+                    access_token = str(refresh.access_token)
                     
-                    # token, created = Token.objects.get_or_create(user=user)
-
                     return Response({
                         "message": "OTP verified successfully",
-                        
-                        # "token": token.key  
+                        "access_token": access_token,
+                        "refresh_token": str(refresh)
                     }, status=status.HTTP_200_OK)
 
                 return Response({"error": "Invalid OTP"}, status=status.HTTP_400_BAD_REQUEST)
@@ -69,5 +67,3 @@ class VerifyOTPView(GenericAPIView):
                 return Response({"error": "OTP not found for user"}, status=status.HTTP_404_NOT_FOUND)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
