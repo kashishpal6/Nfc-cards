@@ -10,7 +10,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 class CompanySerializer(serializers.ModelSerializer):
     class Meta:
         model = Company
-        fields = ['companyName', 'industry', 'designation', 'location']
+        fields = ['companyName', 'industry', 'designation', 'location','id','user']
 
 class OTPSerializer(serializers.Serializer):
     email = serializers.EmailField()

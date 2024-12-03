@@ -56,15 +56,16 @@ class Profile(models.Model):
     def __str__(self):
         return str(self.user)
     
-  
-    
 
 class Company(models.Model):
-    user=models.OneToOneField(CustomUser,on_delete=models.CASCADE,related_name='company')
+    user=models.OneToOneField(CustomUser,on_delete=models.CASCADE,related_name="company")
     companyName=models.CharField(max_length=250)
     industry=models.CharField(max_length=50)
     designation=models.CharField(max_length=50)
     location=models.CharField(max_length=50)
+
+    class Meta:
+        ordering = ['companyName']
     
     def __str__(self):
         return self.companyName
