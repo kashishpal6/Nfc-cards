@@ -29,7 +29,7 @@ class SignupView(GenericAPIView):
                 from_email="your_email@gmail.com", 
                 recipient_list=[user.email],
             )
-            return Response({"message": "OTP sent to your email"}, status=status.HTTP_201_CREATED)
+            return Response({"message": "OTP sent to your email"} ,status=status.HTTP_201_CREATED)
         
         if refer:
             try:
@@ -39,6 +39,12 @@ class SignupView(GenericAPIView):
             except User.DoesNotExist:
                return Response({"error": "Invalid referrer"}, status=status.HTTP_400_BAD_REQUEST) 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)   
+    
+
+class listUser(generics.ListAPIView):
+   queryset=User.objects.all()
+   serializer_class=SignupSerializer
+   permission_classes= [AllowAny]
 
 class VerifyOTPView(GenericAPIView):
     serializer_class = OTPSerializer

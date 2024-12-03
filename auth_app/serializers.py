@@ -5,7 +5,7 @@ from .models import OTP,CustomUser,Profile,Company
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ['user', 'dob', 'profile_pic', 'address']
+        fields = ['user', 'dob', 'profile_pic', 'address','id']
 
 class CompanySerializer(serializers.ModelSerializer):
     class Meta:

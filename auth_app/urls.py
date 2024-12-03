@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import SignupView,VerifyOTPView,createProfile,listCompany,RetrieveCompany,DestroyCompany,createCompany,listProfile,RetrieveProfile,DestroyProfile,UpdateCompany,UpdateProfile
+from .views import SignupView,VerifyOTPView,listUser,createProfile,listCompany,RetrieveCompany,DestroyCompany,createCompany,listProfile,RetrieveProfile,DestroyProfile,UpdateCompany,UpdateProfile
 from rest_framework_simplejwt.views import TokenRefreshView
 
 urlpatterns = [
@@ -7,6 +7,8 @@ urlpatterns = [
     path('verify-otp/', VerifyOTPView.as_view(), name='verify_otp'),
     # path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('listUser/',listUser.as_view(),name = "listUser"),
+
     path('createProfile/',createProfile.as_view(),name="createProfile"),
     path('listProfile/',listProfile.as_view(),name="listprofile"),
     path('RetrieveProfile/<int:pk>/',RetrieveProfile.as_view(),name="RetrieveProfile"),
