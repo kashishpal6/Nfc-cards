@@ -1,13 +1,11 @@
 from rest_framework import serializers
-from django.contrib.auth import get_user_model
 from .models import OTP,CustomUser,Profile,Company
 
-User = get_user_model()
 
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ['name', 'dob', 'profile_pic', 'address']
+        fields = ['user', 'dob', 'profile_pic', 'address']
 
 class CompanySerializer(serializers.ModelSerializer):
     class Meta:
@@ -23,8 +21,8 @@ class OTPSerializer(serializers.Serializer):
         otp_code = data.get('otp_code')
 
         try:
-            user = User.objects.get(email=email)
-        except User.DoesNotExist:
+            user = CustomUser.objects.get(email=email)
+        except CustomUser.DoesNotExist:
             raise serializers.ValidationError("User not found")
 
         otp = OTP.objects.filter(user=user).latest('created_at')
@@ -42,6 +40,6 @@ class SignupSerializer(serializers.ModelSerializer):
         fields = ['name','id', 'email', 'phone_number', 'subscribe']
 
     def create(self, validated_data):
-        return User.objects.create_user(**validated_data)
+        return CustomUser.objects.create_user(**validated_data)
 
 

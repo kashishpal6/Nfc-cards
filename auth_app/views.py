@@ -34,11 +34,10 @@ class SignupView(GenericAPIView):
         if refer:
             try:
                 referrer = User.objects.get(username=refer)
-                user.Profile.referrer = referrer.Profile
+                user.Profile.referrer = referrer.profile
                 user.Profile.save()
             except User.DoesNotExist:
-               return Response({"error": "Invalid referrer"}, status=status.HTTP_400_BAD_REQUEST)       
-
+               return Response({"error": "Invalid referrer"}, status=status.HTTP_400_BAD_REQUEST) 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)   
 
 class VerifyOTPView(GenericAPIView):
