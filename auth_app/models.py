@@ -5,8 +5,7 @@ from django.contrib.auth.models import AbstractUser
 from auth_app.manager import CustomUserManager
 import random
 from django.utils.timezone import now
-from django.contrib.auth import get_user_model
-
+# from django.contrib.auth import get_user_model
 import uuid
 
 class CustomUser(AbstractUser):
@@ -24,10 +23,10 @@ class CustomUser(AbstractUser):
     USERNAME_FIELD = 'email'  
     REQUIRED_FIELDS = [] 
 
-User = get_user_model()
+# User = get_user_model()
 
 class OTP(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)  
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)  
     otp_code = models.CharField(max_length=6)
     created_at = models.DateTimeField(auto_now_add=True)
     expires_at = models.DateTimeField(default=now)
@@ -43,7 +42,7 @@ class OTP(models.Model):
         return timezone.now() > self.created_at + timedelta(minutes=5)
     
     def __str__(self):
-         return f"OTP for {self.user.username}"
+        return f"OTP for {self.user.email}"
     
 class Profile(models.Model):
     user=models.OneToOneField(CustomUser,on_delete=models.CASCADE,related_name="profile")
@@ -51,9 +50,14 @@ class Profile(models.Model):
     profile_pic=models.ImageField(blank=True)
     address=models.CharField(max_length=250)
 
-    def _str_(self):
-        return self.name
+    class Meta:
+        ordering = ['user']
 
+    def __str__(self):
+        return str(self.user)
+    
+  
+    
 
 class Company(models.Model):
     user=models.OneToOneField(CustomUser,on_delete=models.CASCADE,related_name='company')
@@ -62,7 +66,7 @@ class Company(models.Model):
     designation=models.CharField(max_length=50)
     location=models.CharField(max_length=50)
     
-    def _str_(self):
+    def __str__(self):
         return self.companyName
     
 
