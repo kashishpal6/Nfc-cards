@@ -1,11 +1,11 @@
 from django.db import models
+from services.models import Services
 
 class Products(models.Model):
     title = models.CharField(max_length=100)
     industry_type = models.CharField(max_length=100)
-    service = models.JSONField()
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    sellingPrice = models.DecimalField(max_digits=10, decimal_places=2)
+    material_type = models.CharField(max_length=100,default="abc")
+    service = models.ForeignKey(Services,on_delete=models.CASCADE)
 
 
     class Meta:

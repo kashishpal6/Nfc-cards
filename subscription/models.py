@@ -12,7 +12,7 @@ class referSubscription(models.Model):
 
   
     class Meta:
-        unique_together = ('referred_by', 'referred_to')
+        unique_together = ('referred_by','referred_to')
 
 
 

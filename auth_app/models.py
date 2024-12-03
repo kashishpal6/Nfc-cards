@@ -1,64 +1,27 @@
 from django.utils import timezone
 from datetime import timedelta
 from django.db import models
-from django.contrib.auth.models import AbstractUser,BaseUserManager
+from django.contrib.auth.models import AbstractUser
+from auth_app.manager import CustomUserManager
 import random
 from django.utils.timezone import now
 from django.contrib.auth import get_user_model
 
-
-# class CustomUserManager(BaseUserManager):
-#     def create_user(self, phone_number, email=None, password=None, **extra_fields):
-#         if not phone_number:
-#             raise ValueError("The phone number is required")
-#         email = self.normalize_email(email)
-#         extra_fields.setdefault('is_active', True)  
-#         user = self.model(phone_number=phone_number, email=email, **extra_fields)
-#         user.set_password(password)
-#         user.save(using=self._db)
-#         return user
-
-
-class CustomUserManager(BaseUserManager):
-  def create_user(self,phone_number,password=None,**extra_fields):
-    if not phone_number:
-      raise ValueError("phone number is required")
-    user=self.model(phone_number=phone_number,**extra_fields)
-    user.set_password(password)
-    user.save(using=self.db)
-    return user
-        
-  def create_superuser(self,phone_number,password=None,**extra_fields):
-    extra_fields.setdefault('is_staff',True)
-    extra_fields.setdefault('is_superuser',True)
-    extra_fields.setdefault('is_active',True)
-    return self.create_user(phone_number,password,**extra_fields)
-
-    
-
-
-    # def create_superuser(self, phone_number, password, **extra_fields):
-    #     extra_fields.setdefault('is_staff', True)
-    #     extra_fields.setdefault('is_superuser', True)
-
-    #     if not extra_fields.get('is_staff'):
-    #         raise ValueError('Superuser must have is_staff=True.')
-    #     if not extra_fields.get('is_superuser'):
-    #         raise ValueError('Superuser must have is_superuser=True.')
-
-    #     return self.create_user(phone_number, password=password, **extra_fields)
-    
-        
+import uuid
 
 class CustomUser(AbstractUser):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     username = None  
-    phone_number = models.CharField(max_length=15, unique=True,default=0000)
-    email = models.EmailField(unique=True, blank=True, null=True)
+    password=models.CharField(max_length=250,blank=True)
+    name=models.CharField(max_length=250,default="abc")
+    phone_number = models.CharField(max_length=15, unique=True)
+    email = models.EmailField(unique=True, blank=False,default="abc")
     subscribe = models. BooleanField(default=False)
+    isVerified=models.BooleanField(default=False)
        
     objects = CustomUserManager()
 
-    USERNAME_FIELD = 'phone_number'  
+    USERNAME_FIELD = 'email'  
     REQUIRED_FIELDS = [] 
 
 User = get_user_model()
@@ -67,6 +30,7 @@ class OTP(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)  
     otp_code = models.CharField(max_length=6)
     created_at = models.DateTimeField(auto_now_add=True)
+    expires_at = models.DateTimeField(default=now)
 
     
     def generate_otp(self):
@@ -77,10 +41,29 @@ class OTP(models.Model):
 
     def is_expired(self):
         return timezone.now() > self.created_at + timedelta(minutes=5)
-
-
+    
     def __str__(self):
          return f"OTP for {self.user.username}"
+    
+class Profile(models.Model):
+    user=models.OneToOneField(CustomUser,on_delete=models.CASCADE,related_name="profile")
+    dob=models.DateField(null=True)
+    profile_pic=models.ImageField(blank=True)
+    address=models.CharField(max_length=250)
+
+    def _str_(self):
+        return self.name
+
+
+class Company(models.Model):
+    user=models.OneToOneField(CustomUser,on_delete=models.CASCADE,related_name='company')
+    companyName=models.CharField(max_length=250)
+    industry=models.CharField(max_length=50)
+    designation=models.CharField(max_length=50)
+    location=models.CharField(max_length=50)
+    
+    def _str_(self):
+        return self.companyName
     
 
 

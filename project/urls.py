@@ -23,5 +23,6 @@ urlpatterns = [
     path('contact/',include('contact_page.urls')),
     path('subscription/',include('subscription.urls')),
     path('products/',include('products.urls')),
-    path('variant/',include('variant.urls'))
+    path('variant/',include('variant.urls')),
+    path('services/',include('services.urls'))
 ]
