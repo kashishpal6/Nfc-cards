@@ -12,7 +12,10 @@ class CompanySerializer(serializers.ModelSerializer):
         model = Company
         fields = ['companyName', 'industry', 'designation', 'location','id','user']
 
-class OTPSerializer(serializers.Serializer):
+class OTPSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OTP
+        fields = ['otp_code','email']
     email = serializers.EmailField()
     otp_code = serializers.CharField(max_length=6)
 
@@ -39,7 +42,7 @@ class SignupSerializer(serializers.ModelSerializer):
         model = CustomUser
         fields = ['name','id', 'email', 'phone_number', 'subscribe']
 
-    def create(self, validated_data):
-        return CustomUser.objects.create_user(**validated_data)
+    # def create(self, validated_data):
+    #     return CustomUser.objects.create_user(**validated_data)
 
 
