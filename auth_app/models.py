@@ -46,7 +46,7 @@ class Profile(models.Model):
     profile_pic=models.ImageField(blank=True)
     address=models.CharField(max_length=250)
     phone_number = models.CharField(max_length=15, unique=True)
-    email = models.EmailField(unique=True, blank=False,default="abc")
+    email = models.ForeignKey(CustomUser,on_delete=models.CASCADE,related_name="user")
 
 
     class Meta:
