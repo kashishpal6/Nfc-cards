@@ -6,8 +6,8 @@ urlpatterns = [
    
     path('listServices/',listServices.as_view(),name="listServices"),
     path('createServices/',createServices.as_view(),name="createServices"),
-    path('RetrieveServices/<int:pk>/',RetrieveServices.as_view(),name="RetrieveServices"),
-    path('UpdateServices/<int:pk>/',UpdateServices.as_view(),name="UpdateServices"),
-    path('DestroyServices/<int:pk>/',DestroyServices.as_view(),name="DestroyServices"),
+    path('RetrieveServices/',RetrieveServices.as_view(),name="RetrieveServices"),
+    path('UpdateServices/',UpdateServices.as_view(),name="UpdateServices"),
+    path('DestroyServices/',DestroyServices.as_view(),name="DestroyServices"),
 ]
 

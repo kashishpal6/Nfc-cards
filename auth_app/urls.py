@@ -9,13 +9,13 @@ urlpatterns = [
     path('listUser/',listUser.as_view(),name = "listUser"),
     path('createProfile/',createProfile.as_view(),name="createProfile"),
     path('listProfile/',listProfile.as_view(),name="listprofile"),
-    path('RetrieveProfile/<int:pk>/',RetrieveProfile.as_view(),name="RetrieveProfile"),
-    path('UpdateProfile/<int:pk>/',UpdateProfile.as_view(),name="UpdateProfile"),
-    path('DestroyProfile/<int:pk>/',DestroyProfile.as_view(),name="DestroyProfile"),
+    path('RetrieveProfile/',RetrieveProfile.as_view(),name="RetrieveProfile"),
+    path('UpdateProfile/',UpdateProfile.as_view(),name="UpdateProfile"),
+    path('DestroyProfile/',DestroyProfile.as_view(),name="DestroyProfile"),
     path('createCompany/',createCompany.as_view(),name="createCompany"),
     path('listCompany/',listCompany.as_view(),name="listCompany"),
-    path('RetrieveCompany/<int:pk>/',RetrieveCompany.as_view(),name="RetrieveCompany"),
-    path('UpdateCompany/<int:pk>/',UpdateCompany.as_view(),name="UpdateCompany"),
-    path('DestroyCompany/<int:pk>/',DestroyCompany.as_view(),name="DestroyCompany")
+    path('RetrieveCompany/',RetrieveCompany.as_view(),name="RetrieveCompany"),
+    path('UpdateCompany/',UpdateCompany.as_view(),name="UpdateCompany"),
+    path('DestroyCompany/',DestroyCompany.as_view(),name="DestroyCompany")
 ]
 
