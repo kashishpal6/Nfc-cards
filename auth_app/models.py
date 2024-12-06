@@ -5,25 +5,21 @@ from django.contrib.auth.models import AbstractUser
 from auth_app.manager import CustomUserManager
 import random
 from django.utils.timezone import now
-# from django.contrib.auth import get_user_model
 import uuid
 
 class CustomUser(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    username = None  
-    password=models.CharField(max_length=250,blank=True)
-    name=models.CharField(max_length=250,default="abc")
-    phone_number = models.CharField(max_length=15, unique=True)
+    username = None 
+    fullName=models.CharField(max_length=250,default="null")
     email = models.EmailField(unique=True, blank=False,default="abc")
     subscribe = models. BooleanField(default=False)
     isVerified=models.BooleanField(default=False)
+    
        
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'email'  
-    REQUIRED_FIELDS = [] 
-
-# User = get_user_model()
+    REQUIRED_FIELDS = []
 
 class OTP(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)  
@@ -49,6 +45,9 @@ class Profile(models.Model):
     dob=models.DateField(null=True)
     profile_pic=models.ImageField(blank=True)
     address=models.CharField(max_length=250)
+    phone_number = models.CharField(max_length=15, unique=True)
+    email = models.EmailField(unique=True, blank=False,default="abc")
+
 
     class Meta:
         ordering = ['user']

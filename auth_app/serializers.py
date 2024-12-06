@@ -40,9 +40,11 @@ class SignupSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CustomUser
-        fields = ['name','id', 'email', 'phone_number', 'subscribe']
+        fields = ['name','id', 'email', 'phone_number']
 
-    # def create(self, validated_data):
-    #     return CustomUser.objects.create_user(**validated_data)
+class SignupOrLoginSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ['email']
 
 
