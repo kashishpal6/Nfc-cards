@@ -41,20 +41,17 @@ class OTP(models.Model):
         return f"OTP for {self.user.email}"
     
 class Profile(models.Model):
-    user=models.OneToOneField(CustomUser,on_delete=models.CASCADE,related_name="profile")
+    user=models.ForeignKey(CustomUser,on_delete=models.CASCADE,related_name="profile")
     dob=models.DateField(null=True)
     profile_pic=models.ImageField(blank=True)
     address=models.CharField(max_length=250)
     phone_number = models.CharField(max_length=15, unique=True)
-    email = models.ForeignKey(CustomUser,on_delete=models.CASCADE,related_name="Email")
-
-
+    
     class Meta:
         ordering = ['user']
 
     def __str__(self):
         return str(self.user)
-    
 
 class Company(models.Model):
     user=models.OneToOneField(CustomUser,on_delete=models.CASCADE,related_name="company")

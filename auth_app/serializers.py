@@ -5,7 +5,7 @@ from .models import OTP,CustomUser,Profile,Company
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ['dob', 'profile_pic', 'address','phone_number','email']
+        fields = ['dob', 'profile_pic', 'address','phone_number']
 
 class CompanySerializer(serializers.ModelSerializer):
     class Meta:
@@ -48,3 +48,9 @@ class SignupOrLoginSerializer(serializers.ModelSerializer):
         fields = ['email']
 
 
+
+
+
+
+
+# eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM0Nzc1MjIzLCJpYXQiOjE3MzM0NzkyMjMsImp0aSI6ImE0ODczMzRiMzE4MzQ4ZmM4NjNmMTc0YWNlYjc2ZDI5IiwidXNlcl9pZCI6IjQ2NWNkMmNmLWIyNDYtNDU3NS1iMjA3LTczYzJiZmY5ZWQwMSJ9._-z6L4sg2hp0921qLkXsfv5D9a0Wu0ZdbOvEj-srPRE

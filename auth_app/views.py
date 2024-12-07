@@ -101,9 +101,14 @@ class listUser(generics.ListAPIView):
    permission_classes= [AllowAny]
 
 class createProfile(generics.CreateAPIView):
-   queryset=Profile.objects.all()
-   serializer_class=ProfileSerializer
-   permission_classes= [IsAuthenticated]
+    queryset=Profile.objects.all()
+    serializer_class=ProfileSerializer
+    permission_classes= [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
 
 class listProfile(generics.ListAPIView):
    queryset=Profile.objects.all()
@@ -116,9 +121,18 @@ class RetrieveProfile(generics.RetrieveAPIView):
    permission_classes= [AllowAny]
 
 class UpdateProfile(generics.UpdateAPIView):
-   queryset=Profile.objects.all()
-   serializer_class=ProfileSerializer
-   permission_classes= [IsAuthenticated]
+    queryset=Profile.objects.all()
+    serializer_class=ProfileSerializer
+    permission_classes= [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+    def get_object(self):
+        return Profile.objects.get(user=self.request.user)
+
+    def perform_update(self, serializer):
+        serializer.save(user=self.request.user)
 
 class DestroyProfile(generics.DestroyAPIView):
    queryset=Profile.objects.all()
@@ -129,6 +143,9 @@ class createCompany(generics.CreateAPIView):
    queryset=Company.objects.all()
    serializer_class=CompanySerializer
    permission_classes= [IsAuthenticated]
+
+   def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 class listCompany(generics.ListAPIView):
    queryset=Company.objects.all()
@@ -141,9 +158,15 @@ class RetrieveCompany(generics.RetrieveAPIView):
    permission_classes= [AllowAny]
 
 class UpdateCompany(generics.UpdateAPIView):
-   queryset=Company.objects.all()
-   serializer_class=CompanySerializer
-   permission_classes= [IsAuthenticated]
+    queryset=Company.objects.all()
+    serializer_class=CompanySerializer
+    permission_classes= [IsAuthenticated]
+
+    def get_object(self):
+        return Profile.objects.get(user=self.request.user)
+
+    def perform_update(self, serializer):
+        serializer.save(user=self.request.user)
 
 class DestroyCompany(generics.DestroyAPIView):
    queryset=Company.objects.all()
