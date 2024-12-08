@@ -6,9 +6,9 @@ urlpatterns = [
    
     path('createVariant/',createVariant.as_view(),name="createVariant"),
     path('listVariant/',listVariant.as_view(),name="listVariant"),
-    path('RetrieveVariant/',RetrieveVariant.as_view(),name="Retrievevariant"),
-    path('UpdateVariant/',UpdateVariant.as_view(),name="Updatevariant"),
-    path('DestroyVariant/',DestroyVariant.as_view(),name="Destroyvariant"),
+    path('RetrieveVariant/<int:pk>/',RetrieveVariant.as_view(),name="Retrievevariant"),
+    path('UpdateVariant/<int:pk>/',UpdateVariant.as_view(),name="Updatevariant"),
+    path('DestroyVariant/<int:pk>/',DestroyVariant.as_view(),name="Destroyvariant"),
 ]
 
 

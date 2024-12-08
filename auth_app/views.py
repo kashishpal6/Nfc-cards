@@ -158,6 +158,8 @@ class createCompany(generics.CreateAPIView):
    permission_classes= [IsAuthenticated]
 
    def perform_create(self, serializer):
+        if Company.objects.filter(user=self.request.user).exists():
+         raise NotFound(detail="Company already exists")
         serializer.save(user=self.request.user)
 
 class listCompany(generics.ListAPIView):
@@ -171,7 +173,10 @@ class RetrieveCompany(generics.RetrieveAPIView):
    permission_classes= [AllowAny]
 
    def get_object(self):
-        return Company.objects.get(user=self.request.user)
+        try:
+            return Company.objects.get(user=self.request.user)
+        except Company.DoesNotExist:
+            raise NotFound(detail="Company not found")
 
 class UpdateCompany(generics.UpdateAPIView):
     queryset=Company.objects.all()
@@ -179,7 +184,10 @@ class UpdateCompany(generics.UpdateAPIView):
     permission_classes= [IsAuthenticated]
 
     def get_object(self):
-        return Profile.objects.get(user=self.request.user)
+        try:
+            return Company.objects.get(user=self.request.user)
+        except Company.DoesNotExist:
+            raise NotFound(detail="Company not found")
 
     def perform_update(self, serializer):
         serializer.save(user=self.request.user)
@@ -190,4 +198,7 @@ class DestroyCompany(generics.DestroyAPIView):
    permission_classes= [IsAuthenticated]
 
    def get_object(self):
-        return Company.objects.get(user=self.request.user)
+        try:
+            return Profile.objects.get(user=self.request.user)
+        except Profile.DoesNotExist:
+            raise NotFound(detail="Profile not found")
