@@ -120,6 +120,9 @@ class RetrieveProfile(generics.RetrieveAPIView):
    serializer_class=ProfileSerializer
    permission_classes= [AllowAny]
 
+   def get_object(self):
+        return Profile.objects.get(user=self.request.user)
+
 class UpdateProfile(generics.UpdateAPIView):
     queryset=Profile.objects.all()
     serializer_class=ProfileSerializer
@@ -139,6 +142,9 @@ class DestroyProfile(generics.DestroyAPIView):
    serializer_class=ProfileSerializer
    permission_classes= [IsAuthenticated]
 
+   def get_object(self):
+        return Profile.objects.get(user=self.request.user)
+
 class createCompany(generics.CreateAPIView):
    queryset=Company.objects.all()
    serializer_class=CompanySerializer
@@ -157,6 +163,9 @@ class RetrieveCompany(generics.RetrieveAPIView):
    serializer_class=CompanySerializer
    permission_classes= [AllowAny]
 
+   def get_object(self):
+        return Company.objects.get(user=self.request.user)
+
 class UpdateCompany(generics.UpdateAPIView):
     queryset=Company.objects.all()
     serializer_class=CompanySerializer
@@ -172,3 +181,6 @@ class DestroyCompany(generics.DestroyAPIView):
    queryset=Company.objects.all()
    serializer_class=CompanySerializer
    permission_classes= [IsAuthenticated]
+
+   def get_object(self):
+        return Company.objects.get(user=self.request.user)
