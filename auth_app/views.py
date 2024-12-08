@@ -6,6 +6,7 @@ from .models import OTP,Profile,Company,CustomUser
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated,AllowAny
+from rest_framework.exceptions import NotFound
 
 class SignupOrLoginView(generics.CreateAPIView):
     serializer_class = SignupOrLoginSerializer 
@@ -106,9 +107,9 @@ class createProfile(generics.CreateAPIView):
     permission_classes= [IsAuthenticated]
 
     def perform_create(self, serializer):
+        if Profile.objects.filter(user=self.request.user).exists():
+         raise NotFound(detail="Profile already exists")
         serializer.save(user=self.request.user)
-
-
 
 class listProfile(generics.ListAPIView):
    queryset=Profile.objects.all()
@@ -121,18 +122,21 @@ class RetrieveProfile(generics.RetrieveAPIView):
    permission_classes= [AllowAny]
 
    def get_object(self):
-        return Profile.objects.get(user=self.request.user)
+        try:
+            return Profile.objects.get(user=self.request.user)
+        except Profile.DoesNotExist:
+            raise NotFound(detail="Profile not found")
 
 class UpdateProfile(generics.UpdateAPIView):
     queryset=Profile.objects.all()
     serializer_class=ProfileSerializer
     permission_classes= [IsAuthenticated]
 
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
-
     def get_object(self):
-        return Profile.objects.get(user=self.request.user)
+        try:
+            return Profile.objects.get(user=self.request.user)
+        except Profile.DoesNotExist:
+            raise NotFound(detail="Profile not found")
 
     def perform_update(self, serializer):
         serializer.save(user=self.request.user)
@@ -143,7 +147,10 @@ class DestroyProfile(generics.DestroyAPIView):
    permission_classes= [IsAuthenticated]
 
    def get_object(self):
-        return Profile.objects.get(user=self.request.user)
+        try:
+            return Profile.objects.get(user=self.request.user)
+        except Profile.DoesNotExist:
+            raise NotFound(detail="Profile not found")
 
 class createCompany(generics.CreateAPIView):
    queryset=Company.objects.all()
