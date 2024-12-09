@@ -44,10 +44,12 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'contact_page',
-    'subscription',
+    'refer',
     'products',
     'variant',
     'services',
+    'AddToCart',
+    'purchase',
     'corsheaders',
     'rest_framework_simplejwt',
 ]
@@ -138,6 +140,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
 # Default primary key field type
