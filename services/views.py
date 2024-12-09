@@ -2,13 +2,13 @@ from django.shortcuts import render
 from .models import Services
 from .serializers import servicesSerializer
 from rest_framework import generics
-from rest_framework.permissions import IsAuthenticated,AllowAny
+from rest_framework.permissions import IsAuthenticated,AllowAny,IsAdminUser
 
 
 class createServices(generics.CreateAPIView):
    queryset=Services.objects.all()
    serializer_class=servicesSerializer
-   permission_classes= [IsAuthenticated]
+   permission_classes= [IsAdminUser]
 
 class listServices(generics.ListAPIView):
    queryset=Services.objects.all()
@@ -23,10 +23,10 @@ class RetrieveServices(generics.RetrieveAPIView):
 class UpdateServices(generics.UpdateAPIView):
    queryset=Services.objects.all()
    serializer_class=servicesSerializer
-   permission_classes= [IsAuthenticated]
+   permission_classes= [IsAdminUser]
 
 class DestroyServices(generics.DestroyAPIView):
    queryset=Services.objects.all()
    serializer_class=servicesSerializer
-   permission_classes= [IsAuthenticated]
+   permission_classes= [IsAdminUser]
 

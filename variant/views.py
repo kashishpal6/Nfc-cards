@@ -1,13 +1,13 @@
 from .models import variant
 from .serializers import variantSerializer
 from rest_framework import generics
-from rest_framework.permissions import AllowAny,IsAuthenticated
+from rest_framework.permissions import AllowAny,IsAuthenticated,IsAdminUser
 
 
 class createVariant(generics.CreateAPIView):
    queryset=variant.objects.all()
    serializer_class=variantSerializer
-   permission_classes= [IsAuthenticated]
+   permission_classes= [IsAdminUser]
 
 class listVariant(generics.ListAPIView):
    queryset=variant.objects.all()
@@ -22,9 +22,9 @@ class RetrieveVariant(generics.RetrieveAPIView):
 class UpdateVariant(generics.UpdateAPIView):
    queryset=variant.objects.all()
    serializer_class=variantSerializer
-   permission_classes= [IsAuthenticated]
+   permission_classes= [IsAdminUser]
 
 class DestroyVariant(generics.DestroyAPIView):
    queryset=variant.objects.all()
    serializer_class=variantSerializer
-   permission_classes= [IsAuthenticated]
+   permission_classes= [IsAdminUser]
