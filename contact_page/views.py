@@ -1,19 +1,10 @@
 from .models import Contact
 from .serializers import contactSerializer
 from rest_framework import generics
-from rest_framework.permissions import AllowAny,IsAuthenticated
+from rest_framework.permissions import AllowAny,IsAdminUser
 from django.core.mail import send_mail
 from rest_framework.response import Response
 from rest_framework import status
-
-
-# class contact_us(generics.CreateAPIView):
-#    queryset=Contact.objects.all()
-#    serializer_class=contactSerializer
-#    permission_classes= [AllowAny]
-
-
-
 
 class contact_us(generics.CreateAPIView):
     queryset = Contact.objects.all()
@@ -21,10 +12,7 @@ class contact_us(generics.CreateAPIView):
     permission_classes = [AllowAny]
 
     def perform_create(self, serializer):
-        # Save the contact query
         contact_instance = serializer.save()
-
-        # Send email after saving the query
         subject = f"New Contact Query from {contact_instance.name}"
         message = f"Message from: {contact_instance.email}\n\n{contact_instance.message}"
         from_email = 'webmaster@yourdomain.com'  
@@ -41,4 +29,4 @@ class contact_us(generics.CreateAPIView):
 class list_contact_us(generics.ListAPIView):
    queryset=Contact.objects.all()
    serializer_class=contactSerializer
-   permission_classes= [IsAuthenticated]
+   permission_classes= [IsAdminUser]

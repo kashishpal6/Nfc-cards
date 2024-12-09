@@ -5,7 +5,7 @@ from django.core.mail import send_mail
 from .models import OTP,Profile,Company,CustomUser
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework import generics
-from rest_framework.permissions import IsAuthenticated,AllowAny
+from rest_framework.permissions import IsAuthenticated,AllowAny,IsAdminUser
 from rest_framework.exceptions import NotFound
 
 class SignupOrLoginView(generics.CreateAPIView):
@@ -99,7 +99,7 @@ class VerifyOTPView(generics.CreateAPIView):
 class listUser(generics.ListAPIView):
    queryset=CustomUser.objects.all()
    serializer_class=SignupSerializer
-   permission_classes= [AllowAny]
+   permission_classes= [IsAdminUser]
 
 class createProfile(generics.CreateAPIView):
     queryset=Profile.objects.all()
@@ -114,12 +114,12 @@ class createProfile(generics.CreateAPIView):
 class listProfile(generics.ListAPIView):
    queryset=Profile.objects.all()
    serializer_class=ProfileSerializer
-   permission_classes= [AllowAny]
+   permission_classes= [IsAuthenticated]
 
 class RetrieveProfile(generics.RetrieveAPIView):
    queryset=Profile.objects.all()
    serializer_class=ProfileSerializer
-   permission_classes= [AllowAny]
+   permission_classes= [IsAuthenticated]
 
    def get_object(self):
         try:
@@ -165,12 +165,12 @@ class createCompany(generics.CreateAPIView):
 class listCompany(generics.ListAPIView):
    queryset=Company.objects.all()
    serializer_class=CompanySerializer
-   permission_classes= [AllowAny]
+   permission_classes= [IsAuthenticated]
 
 class RetrieveCompany(generics.RetrieveAPIView):
    queryset=Company.objects.all()
    serializer_class=CompanySerializer
-   permission_classes= [AllowAny]
+   permission_classes= [IsAuthenticated]
 
    def get_object(self):
         try:
