@@ -1,7 +1,7 @@
 from .models import Products
 from .serializers import productSerializer
 from rest_framework import generics
-from rest_framework.permissions import IsAuthenticated,AllowAny,IsAdminUser
+from rest_framework.permissions import AllowAny,IsAdminUser
 
 
 class createProducts(generics.CreateAPIView):

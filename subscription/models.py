@@ -1,7 +1,7 @@
 from django.db import models
 from auth_app.models import CustomUser
 
-class referSubscription(models.Model):
+class refer(models.Model):
     referred_by = models.ForeignKey(CustomUser,related_name='referred_by_subscriptions',on_delete=models.CASCADE)
     referred_to = models.OneToOneField(CustomUser, null=True, blank=True, on_delete=models.SET_NULL)
     start_date = models.DateTimeField(auto_now_add=True)

@@ -1,11 +1,11 @@
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import status
-from .models import referSubscription
+from .models import refer
 from .serializers import ReferSubscriptionSerializer
 
 class ReferSubscriptionCreateAPIView(generics.CreateAPIView):
-    queryset = referSubscription.objects.all()
+    queryset = refer.objects.all()
     serializer_class = ReferSubscriptionSerializer
 
     def post(self, request, *args, **kwargs):

@@ -33,7 +33,7 @@
 #         return Response(ReferralSerializer(referral).data, status=status.HTTP_201_CREATED)
 
 from rest_framework import serializers
-from .models import referSubscription
+from .models import refer
 from auth_app.models import CustomUser
 
 class ReferSubscriptionSerializer(serializers.ModelSerializer):
@@ -41,7 +41,7 @@ class ReferSubscriptionSerializer(serializers.ModelSerializer):
     referred_to = serializers.PrimaryKeyRelatedField(queryset=CustomUser.objects.all())
 
     class Meta:
-        model = referSubscription
+        model = refer
         fields = ['referred_by', 'referred_to', 'start_date', 'end_date']
 
     def validate(self, attrs):
@@ -53,7 +53,7 @@ class ReferSubscriptionSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("referred_by and referred_to cannot be the same user.")
 
         
-        if referSubscription.objects.filter(referred_to=referred_to).exists():
+        if refer.objects.filter(referred_to=referred_to).exists():
             raise serializers.ValidationError("This user has already been referred.")
 
         
