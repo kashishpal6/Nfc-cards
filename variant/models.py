@@ -11,6 +11,7 @@ class variant(models.Model):
     back_image = models.ImageField(upload_to='uploads/back_images/',null=True)
     material_type = models.CharField(max_length=100,default="abc")
     shape = models.CharField(max_length=100,default = "rectangle")
+    orientation = models.CharField(max_length=200,choices=[('horizontal','Horizontal'),('vertical','Vertical')],default='horizontal')
 
     
     def __str__(self):
@@ -18,4 +19,4 @@ class variant(models.Model):
 
     class Meta:
         ordering = ['product', 'color']
-        
+

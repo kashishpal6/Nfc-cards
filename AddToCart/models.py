@@ -11,7 +11,7 @@ class Cart(models.Model):
 
 
     class Meta:
-      ordering =['user']
+      ordering =['variant']
   
     def __str__(self):
-      return self.user
+      return self.variant.product.title
