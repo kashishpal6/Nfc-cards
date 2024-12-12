@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'services',
     'AddToCart',
     'purchase',
+    'payment',
     'corsheaders',
     'rest_framework_simplejwt',
 ]
