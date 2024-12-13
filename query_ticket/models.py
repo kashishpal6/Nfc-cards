@@ -4,6 +4,7 @@ from contact_page.models import Contact
 class Ticket(models.Model):
     Fullname = models.CharField(max_length=100)    
     email = models.EmailField()
+    phoneNumber = models.CharField(max_length=10,default='0000',editable=True)
     query = models.TextField()
     message = models.TextField()
     status = models.CharField(max_length=20, choices=[

@@ -1,13 +1,13 @@
 from .models import Ticket
 from .serializers import ticketSerializer
 from rest_framework import generics
-from rest_framework.permissions import IsAdminUser,AllowAny
+from rest_framework.permissions import IsAdminUser,IsAuthenticated
 
 
 class createTicket(generics.CreateAPIView):
    queryset=Ticket.objects.all()
    serializer_class=ticketSerializer
-   permission_classes= [AllowAny]
+   permission_classes= [IsAuthenticated]
 
 class listTicket(generics.ListAPIView):
    queryset=Ticket.objects.all()
