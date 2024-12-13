@@ -2,8 +2,8 @@ from django.db import models
 from contact_page.models import Contact
 
 class Ticket(models.Model):
-    fullName = models.ForeignKey(Contact,on_delete=models.CASCADE,related_name='name',default='default')
-    Email =  models.ForeignKey(Contact,on_delete=models.CASCADE,related_name='contacts',default='email')
+    Fullname = models.ForeignKey(Contact,on_delete=models.CASCADE,related_name='name',default='default')
+    email =  models.ForeignKey(Contact,on_delete=models.CASCADE,related_name='contacts',default='email')
     query = models.ForeignKey(Contact,on_delete=models.CASCADE,related_name="queries")
     message = models.ForeignKey(Contact,on_delete=models.CASCADE,related_name="messages",default="message")
     status = models.CharField(max_length=20, choices=[
