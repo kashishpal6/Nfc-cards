@@ -2,10 +2,10 @@ from django.db import models
 from contact_page.models import Contact
 
 class Ticket(models.Model):
-    Fullname = models.ForeignKey(Contact,on_delete=models.CASCADE,related_name='name',default='default')
-    email =  models.ForeignKey(Contact,on_delete=models.CASCADE,related_name='contacts',default='email')
-    query = models.ForeignKey(Contact,on_delete=models.CASCADE,related_name="queries")
-    message = models.ForeignKey(Contact,on_delete=models.CASCADE,related_name="messages",default="message")
+    fullname = models.ForeignKey(Contact, on_delete=models.CASCADE, related_name='tickets_fullname', default=None)
+    email = models.ForeignKey(Contact, on_delete=models.CASCADE, related_name='tickets_email', default=None)
+    query = models.ForeignKey(Contact, on_delete=models.CASCADE, related_name='tickets_query', default=None)
+    message = models.ForeignKey(Contact, on_delete=models.CASCADE, related_name='tickets_message', default=None)
     status = models.CharField(max_length=20, choices=[
         ('pending', 'Pending'),
         ('resolve', 'Resolve'),
