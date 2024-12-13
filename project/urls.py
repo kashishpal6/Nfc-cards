@@ -28,5 +28,6 @@ urlpatterns = [
     path('cart/',include('AddToCart.urls')),
     path('purchase/',include('purchase.urls')),
     path('payment/',include('payment.urls')),
-    path('query_ticket/',include('query_ticket.urls'))
+    path('query_ticket/',include('query_ticket.urls')),
+    path('return_page/',include('return_page.urls'))
 ]

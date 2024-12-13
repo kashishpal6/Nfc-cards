@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'payment',
     'corsheaders',
     'query_ticket',
+    'return_page',
     'rest_framework_simplejwt',
 ]
     
