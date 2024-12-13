@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'purchase',
     'payment',
     'corsheaders',
+    'query_ticket',
     'rest_framework_simplejwt',
 ]
     
