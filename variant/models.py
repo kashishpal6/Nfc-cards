@@ -14,9 +14,9 @@ class variant(models.Model):
     orientation = models.CharField(max_length=200,choices=[('horizontal','Horizontal'),('vertical','Vertical')],default='horizontal')
 
     
-    def __str__(self):
-        return f"{self.product.title} - {self.color}"
-
     class Meta:
-        ordering = ['product', 'color']
+      ordering =['product']
+  
+    def __str__(self):
+      return str(self.id)
 
