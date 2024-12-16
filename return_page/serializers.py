@@ -4,4 +4,4 @@ from .models import ReturnPage
 class ReturnPageSerializer(serializers.ModelSerializer):
     class Meta:
        model = ReturnPage
-       fields = ['reason','image','return_type','refund_amount']
+       fields = ['purchase_id','productCode','reason','image','request_type','quantity']

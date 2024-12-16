@@ -3,6 +3,7 @@ from purchase.models import Purchase
 
 class ReturnPage(models.Model):
     purchase_id = models.ForeignKey(Purchase, on_delete=models.CASCADE, related_name="pages")  
+    productCode = models.CharField(max_length=100,default=100)
     image = models.ImageField(upload_to='returns/')
     reason = models.TextField()
     status = models.CharField(
