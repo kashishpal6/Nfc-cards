@@ -8,6 +8,10 @@ class createPayment(generics.CreateAPIView):
    serializer_class=paymentSerailizer
    permission_classes= [IsAuthenticated]
 
+   def perform_create(self, serializer):
+        user = self.request.user  
+        serializer.save(user=user)
+
 class listPayment(generics.ListAPIView):
    queryset =Payment.objects.all()
    serializer_class = paymentSerailizer
