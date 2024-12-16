@@ -1,10 +1,8 @@
 from django.db import models
-from auth_app.models import CustomUser
 from purchase.models import Purchase
 
 class ReturnPage(models.Model):
-    purchase_id = models.ForeignKey(Purchase, on_delete=models.CASCADE, related_name="pages")
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="return_requests")  
+    purchase_id = models.ForeignKey(Purchase, on_delete=models.CASCADE, related_name="pages")  
     image = models.ImageField(upload_to='returns/')
     reason = models.TextField()
     status = models.CharField(
