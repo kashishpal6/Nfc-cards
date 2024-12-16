@@ -16,11 +16,11 @@ class ReturnPage(models.Model):
     )
     return_date = models.DateTimeField(auto_now_add=True)  
     is_eligible = models.BooleanField(default=False)
-    refund_amount = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)  
-    return_type = models.CharField(max_length=20, choices=[
-        ('exchange', 'Exchange'),
+    quantity = models.IntegerField(default=00)  
+    request_type = models.CharField(max_length=20, choices=[
+        ('return', 'Return'),
         ('refund', 'Refund'),
-        ('store_credit', 'Store Credit'),
+        ('replacement', 'Replacement'),
     ], default='refund') 
 
     def __str__(self):

@@ -13,6 +13,6 @@ class Purchase(models.Model):
       ordering =['variant']
   
     def __str__(self):
-      return self.variant.product.title
+      return str(self.id)
 
 
