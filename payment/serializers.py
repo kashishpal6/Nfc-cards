@@ -5,4 +5,4 @@ class paymentSerailizer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(read_only=True)
     class Meta:
        model = Payment
-       fields = '__all__'
+       fields = ['payment_id','price','status','payment_method','product_variation','UTR' ]
