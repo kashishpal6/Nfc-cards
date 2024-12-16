@@ -8,6 +8,10 @@ class createReturnPage(generics.CreateAPIView):
     queryset = ReturnPage.objects.all()
     serializer_class = ReturnPageSerializer
     permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        user = self.request.user  
+        serializer.save(user=user)
     
 class listReturnPage(generics.ListAPIView):
     queryset = ReturnPage.objects.all()
@@ -23,7 +27,7 @@ class retrieveReturnPage(generics.RetrieveAPIView):
         try:
             return ReturnPage.objects.get(user=self.request.user)
         except ReturnPage.DoesNotExist:
-            raise NotFound(detail="Profile not found")
+            raise NotFound(detail="Not any Purchase")
     
 class updateReturnPage(generics.UpdateAPIView):
     queryset = ReturnPage.objects.all()
