@@ -21,7 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/',include('auth_app.urls')),
     path('contact/',include('contact_page.urls')),
-    path('refer/',include('refer.urls')),
     path('products/',include('products.urls')),
     path('variant/',include('variant.urls')),
     path('services/',include('services.urls')),

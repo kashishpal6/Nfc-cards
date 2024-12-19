@@ -9,14 +9,14 @@ from rest_framework.permissions import IsAuthenticated,AllowAny,IsAdminUser
 from rest_framework.exceptions import NotFound
 
 class SignupOrLoginView(generics.CreateAPIView):
-    serializer_class = SignupOrLoginSerializer 
+    serializer_class = SignupOrLoginSerializer
     permission_classes = [AllowAny]
 
     def create(self, request, *args, **kwargs):
         email = request.data.get('email')
         user = CustomUser.objects.filter(email=email).first()
         if user:
-            OTP.objects.filter(user=user).delete() 
+            OTP.objects.filter(user=user).delete()
             otp = OTP.objects.create(user=user)
             otp.generate_otp()
             otp.save()
@@ -32,14 +32,6 @@ class SignupOrLoginView(generics.CreateAPIView):
             signup_serializer = SignupOrLoginSerializer(data=request.data)
             if signup_serializer.is_valid():
                 user = signup_serializer.save()
-                refer = request.data.get('refer')
-                if refer:
-                    try:
-                        referrer = CustomUser.objects.get(username=refer)
-                        user.profile.referrer = referrer.profile
-                        user.profile.save()
-                    except CustomUser.DoesNotExist:
-                        return Response({"error": "Invalid referrer"}, status=status.HTTP_400_BAD_REQUEST)
                 otp = OTP.objects.create(user=user)
                 otp.generate_otp()
                 otp.save()
@@ -53,6 +45,7 @@ class SignupOrLoginView(generics.CreateAPIView):
 
                 return Response({"message": "OTP has been sent to your email."}, status=status.HTTP_200_OK)
         return Response({"error": "Unexpected error occurred."}, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 class VerifyOTPView(generics.CreateAPIView):

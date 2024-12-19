@@ -12,10 +12,8 @@ class CustomUser(AbstractUser):
     username = None 
     fullName=models.CharField(max_length=250,default="null")
     email = models.EmailField(unique=True, blank=False,default="abc")
-    subscribe = models. BooleanField(default=False)
     isVerified=models.BooleanField(default=False)
     
-       
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'email'  
