@@ -41,7 +41,7 @@ class OTP(models.Model):
 class Profile(models.Model):
     user=models.ForeignKey(CustomUser,on_delete=models.CASCADE,related_name="profile")
     dob=models.DateField(null=True)
-    profile_pic=models.ImageField(blank=True)
+    profile_pic=models.ImageField(upload_to="ProfileImages/",blank=True)
     address=models.CharField(max_length=250)
     phone_number = models.CharField(max_length=15, unique=True)
     
