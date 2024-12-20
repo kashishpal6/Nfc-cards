@@ -16,6 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,4 +31,10 @@ urlpatterns = [
     path('payment/',include('payment.urls')),
     path('query_ticket/',include('query_ticket.urls')),
     path('return_page/',include('return_page.urls'))
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+admin.site.site_header = "NFC Cards Admin"
+admin.site.site_title = "NFC Cards Admin Portal"
+admin.site.index_title = "Welcome to NFC Cards Portal"
+
+

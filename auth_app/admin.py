@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import CustomUser, OTP, Profile, Company
 from django.contrib.auth.admin import UserAdmin
+from django.utils.html import format_html
 
 class CustomUserAdmin(UserAdmin):
     model = CustomUser
@@ -28,7 +29,12 @@ class OTPAdmin(admin.ModelAdmin):
 
 
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', 'dob', 'address', 'phone_number')
+    def image_tag(self, obj):
+        return format_html(f'<img src="{obj.profile_pic.url}" style="max-width:200px; max-height:200px"/>')
+
+    image_tag.short_description = 'Profile_pic'
+
+    list_display = ('user', 'dob', 'address', 'phone_number','image_tag')
     search_fields = ('user__email', 'phone_number')
     list_filter = ['user__isVerified']
 

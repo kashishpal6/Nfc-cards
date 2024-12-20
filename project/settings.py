@@ -177,21 +177,7 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-
-
-
-
 STATICFILES_DIRS = [BASE_DIR / "static"]
-
-
-
-# STATIC_URL = "/static/"
-# STATICFILES_DIRS = [
-#     BASE_DIR / "static",
-#     "/var/www/static/",
-# ]
-
-
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=15),

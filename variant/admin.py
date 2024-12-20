@@ -1,12 +1,30 @@
 from django.contrib import admin
-from.models import variant
+from .models import variant
+from django.utils.html import format_html
 
 class VariantAdmin(admin.ModelAdmin):
-    list_display = ('product','color','stock','price','selling_price','front_image','back_image','material_type','shape','orientation')
-    search_fields = ['product__title','material_type','orientation','shape']
+    def front_image_tag(self, obj):
+        return format_html(
+            '<img src="{}" style="max-width:200px; max-height:200px;" />',
+            obj.front_image.url
+        )
+
+    def back_image_tag(self, obj):
+        return format_html(
+            '<img src="{}" style="max-width:200px; max-height:200px;" />',
+            obj.back_image.url
+        )
+    
+    front_image_tag.short_description = 'Front Image'
+    back_image_tag.short_description = 'Back Image'
+    
+    list_display = ('product', 'color', 'stock', 'price', 'selling_price', 
+                     'material_type', 'shape', 'orientation','front_image_tag', 'back_image_tag')
+    
+    search_fields = ['product__title', 'material_type', 'orientation', 'shape']
     list_filter = ['material_type']
     ordering = ['id']
-    
-    list_per_page = 20  
+    list_per_page = 20
 
-admin.site.register(variant,VariantAdmin)
+admin.site.register(variant, VariantAdmin)
+

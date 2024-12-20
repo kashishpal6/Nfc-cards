@@ -11,6 +11,7 @@ class Services(models.Model):
 
     class Meta:
       ordering =['type']
+      verbose_name_plural = "services"
   
     def __str__(self):
       return self.type
