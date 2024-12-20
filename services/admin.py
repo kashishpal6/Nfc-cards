@@ -18,7 +18,7 @@ class ServiceAdmin(admin.ModelAdmin):
     @staticmethod
 
     def Description(obj):
-        return obj.description[:300] + '...' if len(obj.description) > 50 else obj.description
+        return obj.description[:300] + '...' if len(obj.description) > 300 else obj.description
 
     def Image(self, obj):
         return format_html(f'<img src="{obj.image.url}" style="max-width:200px; max-height:200px"/>')

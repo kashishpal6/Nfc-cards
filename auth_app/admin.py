@@ -29,12 +29,10 @@ class OTPAdmin(admin.ModelAdmin):
 
 
 class ProfileAdmin(admin.ModelAdmin):
-    def image_tag(self, obj):
+    def Profile_pic(self, obj):
         return format_html(f'<img src="{obj.profile_pic.url}" style="max-width:200px; max-height:200px"/>')
 
-    image_tag.short_description = 'Profile_pic'
-
-    list_display = ('user', 'dob', 'address', 'phone_number','image_tag')
+    list_display = ('user', 'dob', 'address', 'phone_number','Profile_pic')
     search_fields = ('user__email', 'phone_number')
     list_filter = ['user__isVerified']
 
