@@ -16,7 +16,6 @@ class CustomUserAdmin(UserAdmin):
         (('Important dates'), {'fields': ('last_login', 'date_joined')}),
     )
 
-
 class OTPAdmin(admin.ModelAdmin):
     list_display = ('user', 'otp_code', 'created_at', 'expires_at', 'is_expired')
     search_fields = ('user__email', 'otp_code')
@@ -26,7 +25,6 @@ class OTPAdmin(admin.ModelAdmin):
         return obj.is_expired()
     is_expired.boolean = True
     is_expired.short_description = 'Expired'
-
 
 class ProfileAdmin(admin.ModelAdmin):
     def Profile_pic(self, obj):
