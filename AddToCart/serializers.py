@@ -5,5 +5,5 @@ class AddToCartSerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(read_only=True)
     class Meta:
         model = Cart
-        fields = ['variant','front_data','back_data','user']
+        fields = ['user','id','variant','front_data','back_data']
     
