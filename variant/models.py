@@ -9,11 +9,10 @@ class variant(models.Model):
     selling_price = models.DecimalField(max_digits=10, decimal_places=2)
     front_image = models.ImageField(upload_to='variants/front_images/',null=True)
     back_image = models.ImageField(upload_to='variants/back_images/',null=True)
-    material_type = models.CharField(max_length=100,default="abc")
-    shape = models.CharField(max_length=100,default = "rectangle")
-    orientation = models.CharField(max_length=200,choices=[('horizontal','Horizontal'),('vertical','Vertical')],default='horizontal')
+    # material_type = models.CharField(max_length=100,default="abc")
+    # shape = models.CharField(max_length=100,default = "rectangle")
+    # orientation = models.CharField(max_length=200,choices=[('horizontal','Horizontal'),('vertical','Vertical')],default='horizontal')
 
-    
     class Meta:
       ordering =['product']
   

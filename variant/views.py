@@ -19,6 +19,15 @@ class RetrieveVariant(generics.RetrieveAPIView):
    serializer_class=variantSerializer
    permission_classes= [AllowAny]
 
+class ListVariantByProductID(generics.ListAPIView):
+   serializer_class = variantSerializer
+   permission_classes =[AllowAny]
+   
+   def get_queryset(self):
+      variants_id = self.kwargs['pk']
+      return variant.objects.filter(id = variants_id)
+   
+
 class UpdateVariant(generics.UpdateAPIView):
    queryset=variant.objects.all()
    serializer_class=variantSerializer

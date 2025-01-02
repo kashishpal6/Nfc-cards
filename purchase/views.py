@@ -1,14 +1,14 @@
 from .models import Purchase
+from AddToCart.models import Cart
 from .serializers import PurchaseSerializer
 from rest_framework import generics
-from rest_framework.permissions import IsAuthenticated,IsAdminUser
+from rest_framework.permissions import IsAuthenticated,IsAdminUser,AllowAny
 from rest_framework.exceptions import NotFound
-
 
 class createPurchase(generics.CreateAPIView):
     queryset = Purchase.objects.all()
     serializer_class = PurchaseSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     def perform_create(self, serializer):
         user = self.request.user  

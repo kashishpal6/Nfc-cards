@@ -5,5 +5,5 @@ class PurchaseSerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(read_only=True)
     class Meta:
         model = Purchase
-        fields = ['user','variant','quantity']
+        fields = ['user','variant','quantity','cart_id']
     

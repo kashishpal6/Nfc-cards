@@ -18,11 +18,10 @@ class VariantAdmin(admin.ModelAdmin):
     front_image_tag.short_description = 'Front Image'
     back_image_tag.short_description = 'Back Image'
     
-    list_display = ('product', 'color', 'stock', 'price', 'selling_price', 
-                     'material_type', 'shape', 'orientation','front_image_tag', 'back_image_tag')
+    list_display = ('product', 'color', 'stock', 'price', 'selling_price','front_image_tag', 'back_image_tag')
     
-    search_fields = ['product__title', 'material_type', 'orientation', 'shape']
-    list_filter = ['material_type']
+    search_fields = ['product__title']
+    list_filter = ['product']
     ordering = ['id']
     list_per_page = 20
 
