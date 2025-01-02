@@ -49,49 +49,6 @@ class SignupOrLoginView(generics.CreateAPIView):
                 return Response({"message": "OTP has been sent to your email."}, status=status.HTTP_200_OK)
         return Response({"error": "Unexpected error occurred."}, status=status.HTTP_400_BAD_REQUEST)
 
-    # def create(self, request, *args, **kwargs):
-    #     email = request.data.get('email')
-    #     user = CustomUser.objects.filter(email=email).first()
-    #     if user:
-    #         OTP.objects.filter(user=user).delete()
-    #         otp = OTP.objects.create(user=user)
-    #         otp.generate_otp()
-    #         otp.save()
-    #         html_message = render_to_string('otp_email_template.html',
-    #                                         {'otp_code': otp.otp_code, 'user_name': user.first_name})
-    #         send_mail(
-    #             subject="Your OTP Code",
-    #             message=f"Your OTP code is {otp.otp_code}",  
-    #             from_email="kashish.palkurmato@gmail.com",  
-    #             recipient_list=[user.email],
-    #             html_message=html_message,  
-    #         )
-
-    #         return Response({"message": "OTP has been sent to your email."}, status=status.HTTP_200_OK)
-    #     else:
-    #         signup_serializer = SignupOrLoginSerializer(data=request.data)
-    #         if signup_serializer.is_valid():
-    #             user = signup_serializer.save()
-    #             otp = OTP.objects.create(user=user)
-    #             otp.generate_otp()
-    #             otp.save()
-
-    #             html_message = render_to_string(
-    #                 'otp_email_template.html',
-    #                 {'otp_code': otp.otp_code, 'user_name': user.first_name}
-    #             )
-
-    #             send_mail(
-    #                 subject="Your OTP Code",
-    #                 message=f"Your OTP code is {otp.otp_code}",
-    #                 from_email="kashish.palkurmato@gmail.com",  
-    #                 recipient_list=[user.email],
-    #                 html_message=html_message,
-    #             )
-
-    #             return Response({"message": "OTP has been sent to your email."}, status=status.HTTP_200_OK)
-    #     return Response({"error": "Unexpected error occurred."}, status=status.HTTP_400_BAD_REQUEST)
-
 class VerifyOTPView(generics.CreateAPIView):
     serializer_class = OTPSerializer
     queryset = OTP.objects.all()
