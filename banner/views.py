@@ -1,7 +1,7 @@
 from rest_framework import generics
 from .models import Banners
 from .serializers import BannerSerializer
-from rest_framework.permissions import IsAdminUser
+from rest_framework.permissions import IsAdminUser,AllowAny
 
 class CreateBanner(generics.CreateAPIView):
     queryset = Banners.objects.all()
@@ -21,9 +21,9 @@ class DestroyBanner(generics.DestroyAPIView):
 class listBanner(generics.ListAPIView):
    queryset=Banners.objects.all()
    serializer_class=BannerSerializer
-   permission_classes= [IsAdminUser]
+   permission_classes= [AllowAny]
 
 class RetrieveBanner(generics.ListAPIView):
    queryset=Banners.objects.all()
    serializer_class=BannerSerializer
-   permission_classes= [IsAdminUser]
+   permission_classes= [AllowAny]
