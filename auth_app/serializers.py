@@ -6,7 +6,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Profile
-        fields = ['dob', 'profile_pic', 'address','phone_number']
+        fields = ['fullName','dob', 'profile_pic', 'address','phone_number']
 
 class CompanySerializer(serializers.ModelSerializer):
     class Meta:
