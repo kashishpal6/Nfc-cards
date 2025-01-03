@@ -30,7 +30,8 @@ urlpatterns = [
     path('purchase/',include('purchase.urls')),
     path('payment/',include('payment.urls')),
     path('query_ticket/',include('query_ticket.urls')),
-    path('return_page/',include('return_page.urls'))
+    path('return_page/',include('return_page.urls')),
+    path('banner/',include('banner.urls'))
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 admin.site.site_header = "NFC Cards Admin"
