@@ -10,7 +10,6 @@ import uuid
 class CustomUser(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     username = None 
-    fullName=models.CharField(max_length=250,default="null")
     email = models.EmailField(unique=True, blank=False,default="abc")
     isVerified=models.BooleanField(default=False)
     
@@ -40,6 +39,7 @@ class OTP(models.Model):
     
 class Profile(models.Model):
     user=models.ForeignKey(CustomUser,on_delete=models.CASCADE,related_name="profile")
+    fullName=models.CharField(max_length=250,default="null")
     dob=models.DateField(null=True)
     profile_pic=models.ImageField(upload_to="ProfileImages/",blank=True)
     address=models.CharField(max_length=250)

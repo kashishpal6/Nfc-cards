@@ -5,13 +5,13 @@ from django.utils.html import format_html
 
 class CustomUserAdmin(UserAdmin):
     model = CustomUser
-    list_display = ('email', 'fullName','isVerified', 'date_joined', 'last_login')
-    search_fields = ('email', 'fullName')
+    list_display = ('email', 'isVerified', 'date_joined', 'last_login')
+    search_fields = ['email']
     ordering = ('email',)
-    list_filter = ('isVerified', 'fullName')
+    list_filter = ['isVerified']
 
     fieldsets = (
-        (None, {'fields': ('email', 'fullName', 'password')}),
+        (None, {'fields': ('email', 'password')}),
         (('Permissions'), {'fields': ('is_active', 'isVerified', 'groups', 'user_permissions')}),
         (('Important dates'), {'fields': ('last_login', 'date_joined')}),
     )
@@ -30,9 +30,9 @@ class ProfileAdmin(admin.ModelAdmin):
     def Profile_pic(self, obj):
         return format_html(f'<img src="{obj.profile_pic.url}" style="max-width:200px; max-height:200px"/>')
 
-    list_display = ('user', 'dob', 'address', 'phone_number','Profile_pic')
-    search_fields = ('user__email', 'phone_number')
-    list_filter = ['user__isVerified']
+    list_display = ('user','fullName', 'dob', 'address', 'phone_number','Profile_pic')
+    search_fields = ('user__email', 'fullName','phone_number')
+    list_filter = ['user__isVerified','fullName']
 
 
 class CompanyAdmin(admin.ModelAdmin):

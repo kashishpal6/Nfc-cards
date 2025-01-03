@@ -3,6 +3,7 @@ from .models import OTP,CustomUser,Profile,Company
 
 
 class ProfileSerializer(serializers.ModelSerializer):
+    
     class Meta:
         model = Profile
         fields = ['dob', 'profile_pic', 'address','phone_number']
