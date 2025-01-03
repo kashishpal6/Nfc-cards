@@ -7,8 +7,8 @@ class ProductAdmin(admin.ModelAdmin):
     def Description(obj):
         return obj.description[:50] + '...' if len(obj.description) > 50 else obj.description
     
-    list_display = ('id', 'title', 'material_type', 'service', 'Description')
-    search_fields = ['material_type', 'service__type']
+    list_display = ('id', 'title', 'service', 'Description')
+    search_fields = ['service__type']
     list_filter = ['service', 'title']
     ordering = ['id']
     
