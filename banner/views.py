@@ -17,3 +17,13 @@ class DestroyBanner(generics.DestroyAPIView):
    queryset=Banners.objects.all()
    serializer_class=BannerSerializer
    permission_classes= [IsAdminUser]
+
+class listBanner(generics.ListAPIView):
+   queryset=Banners.objects.all()
+   serializer_class=BannerSerializer
+   permission_classes= [IsAdminUser]
+
+class RetrieveBanner(generics.ListAPIView):
+   queryset=Banners.objects.all()
+   serializer_class=BannerSerializer
+   permission_classes= [IsAdminUser]
