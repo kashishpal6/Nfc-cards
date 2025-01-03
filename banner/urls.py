@@ -6,5 +6,5 @@ urlpatterns = [
     path('UpdateBanner/<int:pk>/',UpdateBanner.as_view(),name="UpdateBanner"),
     path('DestroyBanner/<int:pk>/',DestroyBanner.as_view(),name="DestroyBanner"),
     path('listBanner/',listBanner.as_view(),name='listBanner'),
-    path('RetrieveBanner/',RetrieveBanner.as_view(),name='RetrieveBanner')
+    path('RetrieveBanner/<int:pk>/',RetrieveBanner.as_view(),name='RetrieveBanner')
 ]
