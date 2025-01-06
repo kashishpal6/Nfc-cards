@@ -10,8 +10,8 @@ class createCart(generics.CreateAPIView):
    permission_classes= [IsAuthenticated]
 
    def perform_create(self, serializer):
-        if Cart.objects.filter(user=self.request.user).exists():
-         raise NotFound("Product already add to cart")
+        # if Cart.objects.filter(user=self.request.user).exists():
+        #  raise NotFound("Product already add to cart")
         serializer.save(user=self.request.user)
 
 class listCart(generics.ListAPIView):
