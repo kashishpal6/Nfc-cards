@@ -2,7 +2,6 @@ from .models import Products
 from .serializers import productSerializer
 from rest_framework import generics
 from rest_framework.permissions import AllowAny,IsAdminUser
-from django_filters.rest_framework import DjangoFilterBackend
 import django_filters
 
 
