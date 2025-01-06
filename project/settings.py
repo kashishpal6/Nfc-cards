@@ -55,6 +55,8 @@ INSTALLED_APPS = [
     'return_page',
     'banner',
     'rest_framework_simplejwt',
+    'django_filters',
+
 ]
     
 AUTH_USER_MODEL = 'auth_app.CustomUser'
@@ -161,8 +163,10 @@ REST_FRAMEWORK = {
 
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+    ),
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 }
+
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
