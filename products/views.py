@@ -2,6 +2,13 @@ from .models import Products
 from .serializers import productSerializer
 from rest_framework import generics
 from rest_framework.permissions import AllowAny,IsAdminUser
+import django_filters
+
+class ProductFilter(django_filters.FilterSet):
+    title = django_filters.CharFilter(lookup_expr='icontains')  
+    class Meta:
+        model = Products
+        fields = ['title'] 
 
 class createProducts(generics.CreateAPIView):
    queryset=Products.objects.all()
@@ -12,6 +19,7 @@ class listProducts(generics.ListAPIView):
    queryset=Products.objects.all()
    serializer_class=productSerializer
    permission_classes= [AllowAny]
+   filterset_class = ProductFilter
    
 
 class ListProductsByServiceID(generics.ListAPIView):

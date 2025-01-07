@@ -13,7 +13,7 @@ class contact_us(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         contact_instance = serializer.save()
-        subject = f"New Contact Query from {contact_instance.name}"
+        subject = f"New Contact Query from {contact_instance.Fullname}"
         message = f"Message from: {contact_instance.email}\n\n{contact_instance.message}"
         from_email = 'webmaster@yourdomain.com'  
         recipient_list = ['kashish.palkurmato@gmail.com'] 
