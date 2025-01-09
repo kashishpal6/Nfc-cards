@@ -10,8 +10,6 @@ class createCart(generics.CreateAPIView):
    permission_classes= [IsAuthenticated]
 
    def perform_create(self, serializer):
-        # if Cart.objects.filter(user=self.request.user).exists():
-        #  raise NotFound("Product already add to cart")
         serializer.save(user=self.request.user)
 
 class listCart(generics.ListAPIView):
@@ -19,27 +17,18 @@ class listCart(generics.ListAPIView):
    serializer_class=AddToCartSerializer
    permission_classes= [IsAuthenticated]
 
+   def get_queryset(self):
+        return Cart.objects.filter(user=self.request.user)
+
 class RetrieveCart(generics.RetrieveAPIView):
    queryset=Cart.objects.all()
    serializer_class=AddToCartSerializer
    permission_classes= [IsAuthenticated]
 
-   def get_object(self):
-        try:
-            return Cart.objects.get(user=self.request.user)
-        except Cart.DoesNotExist:
-            raise NotFound("Product not found in cart")
-
 class UpdateCart(generics.UpdateAPIView):
     queryset=Cart.objects.all()
     serializer_class=AddToCartSerializer
     permission_classes= [IsAuthenticated]
-
-    def get_object(self):
-        try:
-            return Cart.objects.get(user=self.request.user)
-        except Cart.DoesNotExist:
-            raise NotFound("Product is saved")
 
     def perform_update(self, serializer):
         serializer.save(user=self.request.user)
@@ -49,8 +38,4 @@ class DestroyCart(generics.DestroyAPIView):
    serializer_class=AddToCartSerializer
    permission_classes= [IsAuthenticated]
 
-   def get_object(self):
-        try:
-            return Cart.objects.get(user=self.request.user)
-        except Cart.DoesNotExist:
-            raise NotFound("Product not found")
+   
