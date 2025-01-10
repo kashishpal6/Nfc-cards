@@ -2,7 +2,6 @@ from .serializers import AddToCartSerializer,GetCartSerializer
 from .models import Cart
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
 
 class createCart(generics.CreateAPIView):
    queryset=Cart.objects.all()
