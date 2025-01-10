@@ -1,8 +1,8 @@
-from .serializers import AddToCartSerializer
+from .serializers import AddToCartSerializer,GetCartSerializer
 from .models import Cart
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.exceptions import NotFound
+from rest_framework.response import Response
 
 class createCart(generics.CreateAPIView):
    queryset=Cart.objects.all()
@@ -22,7 +22,7 @@ class listCart(generics.ListAPIView):
 
 class RetrieveCart(generics.RetrieveAPIView):
    queryset=Cart.objects.all()
-   serializer_class=AddToCartSerializer
+   serializer_class=GetCartSerializer
    permission_classes= [IsAuthenticated]
 
 class UpdateCart(generics.UpdateAPIView):
@@ -39,3 +39,10 @@ class DestroyCart(generics.DestroyAPIView):
    permission_classes= [IsAuthenticated]
 
    
+
+
+
+
+
+
+

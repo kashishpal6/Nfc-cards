@@ -2,6 +2,13 @@ from .models import variant
 from .serializers import variantSerializer
 from rest_framework import generics
 from rest_framework.permissions import AllowAny,IsAdminUser
+import django_filters
+
+class VariantFilter(django_filters.FilterSet):
+    title = django_filters.CharFilter(lookup_expr='icontains')  
+    class Meta:
+        model = variant
+        fields = ['color','shape','orientation','material_type']
 
 
 class createVariant(generics.CreateAPIView):
@@ -13,6 +20,8 @@ class listVariant(generics.ListAPIView):
    queryset=variant.objects.all()
    serializer_class=variantSerializer
    permission_classes= [AllowAny]
+   filterset_class = VariantFilter
+   
 
 class RetrieveVariant(generics.RetrieveAPIView):
    queryset=variant.objects.all()
