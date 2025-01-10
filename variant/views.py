@@ -22,7 +22,6 @@ class listVariant(generics.ListAPIView):
    permission_classes= [AllowAny]
    filterset_class = VariantFilter
    
-
 class RetrieveVariant(generics.RetrieveAPIView):
    queryset=variant.objects.all()
    serializer_class=variantSerializer

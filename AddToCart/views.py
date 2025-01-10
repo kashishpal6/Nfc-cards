@@ -14,7 +14,7 @@ class createCart(generics.CreateAPIView):
 
 class listCart(generics.ListAPIView):
    queryset=Cart.objects.all()
-   serializer_class=AddToCartSerializer
+   serializer_class=GetCartSerializer
    permission_classes= [IsAuthenticated]
 
    def get_queryset(self):

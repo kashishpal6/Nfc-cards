@@ -1,6 +1,5 @@
 from .models import Cart
 from rest_framework import serializers
-from variant.models import variant
 
 class AddToCartSerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(read_only=True)
@@ -30,5 +29,3 @@ class GetCartSerializer(serializers.ModelSerializer):
     
     def get_back_image(self, obj):
         return obj.variant.back_image.url
-
-    
