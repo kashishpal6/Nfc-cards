@@ -28,7 +28,9 @@ class OTPAdmin(admin.ModelAdmin):
 
 class ProfileAdmin(admin.ModelAdmin):
     def Profile_pic(self, obj):
+     if obj.profile_pic:
         return format_html(f'<img src="{obj.profile_pic.url}" style="max-width:200px; max-height:200px"/>')
+     return "No Image"
 
     list_display = ('user','fullName', 'dob', 'address', 'phone_number','Profile_pic')
     search_fields = ('user__email', 'fullName','phone_number')
