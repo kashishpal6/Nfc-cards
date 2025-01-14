@@ -173,7 +173,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'kashish.palkurmato@gmail.com' 
-EMAIL_HOST_PASSWORD = 'inzletozbvojlabs'
+EMAIL_HOST_PASSWORD = 'szwsxmolnsvdbmqv'
 
 
 # Using database-backed sessions (default)
