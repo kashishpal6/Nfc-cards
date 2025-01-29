@@ -9,3 +9,5 @@ class BannerAdmin(admin.ModelAdmin):
     list_display = ('id','type','image')
     search_fields = ['type']
     list_filter = ['type']
+
+admin.site.register(Banners, BannerAdmin)

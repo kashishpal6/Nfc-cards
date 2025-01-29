@@ -120,20 +120,34 @@ class RetrieveProfile(generics.RetrieveAPIView):
             return Profile.objects.get(user=self.request.user)
         except Profile.DoesNotExist:
             raise NotFound(detail="Profile not found")
-
+        
 class UpdateProfile(generics.UpdateAPIView):
-    queryset=Profile.objects.all()
-    serializer_class=ProfileSerializer
-    permission_classes= [IsAuthenticated]
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+    permission_classes = [IsAuthenticated]
 
     def get_object(self):
-        try:
-            return Profile.objects.get(user=self.request.user)
-        except Profile.DoesNotExist:
-            raise NotFound(detail="Profile not found")
+        # Try to get the profile; if not found, create a new one
+        profile, created = Profile.objects.get_or_create(user=self.request.user)
+        return profile
 
     def perform_update(self, serializer):
+        # Update the profile data
         serializer.save(user=self.request.user)
+
+# class UpdateProfile(generics.UpdateAPIView):
+#     queryset=Profile.objects.all()
+#     serializer_class=ProfileSerializer
+#     permission_classes= [IsAuthenticated]
+
+#     def get_object(self):
+#         try:
+#             return Profile.objects.get(user=self.request.user)
+#         except Profile.DoesNotExist:
+#             raise NotFound(detail="Profile not found")
+
+#     def perform_update(self, serializer):
+#         serializer.save(user=self.request.user)
 
 class DestroyProfile(generics.DestroyAPIView):
    queryset=Profile.objects.all()
