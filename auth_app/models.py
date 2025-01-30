@@ -43,7 +43,7 @@ class Profile(models.Model):
     dob=models.DateField(null=True)
     profile_pic=models.ImageField(upload_to="ProfileImages/",blank=True)
     address=models.CharField(max_length=250)
-    phone_number = models.CharField(max_length=15, unique=True)
+    phone_number = models.CharField(max_length=10,unique=True)
     
     class Meta:
         ordering = ['user']
