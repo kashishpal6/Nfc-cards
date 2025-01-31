@@ -3,7 +3,7 @@ from .models import Contact
 
 
 class contactSerializer(serializers.ModelSerializer):
-
+   contact_id = serializers.CharField(source = "id")
    class Meta:
       model=Contact
-      fields='__all__'
+      fields=['contact_id','Fullname','email','phoneNumber','message']

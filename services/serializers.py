@@ -3,7 +3,8 @@ from .models import Services
 
 
 class servicesSerializer(serializers.ModelSerializer):
+   service_id = serializers.CharField(source = "id")
 
    class Meta:
       model=Services
-      fields='__all__'
+      fields=['service_id','type','description','price','image']
