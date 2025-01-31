@@ -7,6 +7,7 @@ import random
 from django.utils.timezone import now
 import uuid
 
+
 class CustomUser(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     username = None 
@@ -43,7 +44,7 @@ class Profile(models.Model):
     dob=models.DateField(null=True)
     profile_pic=models.ImageField(upload_to="ProfileImages/",blank=True)
     address=models.CharField(max_length=250)
-    phone_number = models.CharField(max_length=10,unique=True)
+    phone_number = models.CharField(max_length=10,null=False, blank=False, unique=True)
     
     class Meta:
         ordering = ['user']

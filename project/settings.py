@@ -56,8 +56,7 @@ INSTALLED_APPS = [
     'banner',
     'rest_framework_simplejwt',
     'django_filters',
-
-]
+    ]
     
 AUTH_USER_MODEL = 'auth_app.CustomUser'
 
