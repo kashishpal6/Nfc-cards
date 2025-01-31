@@ -48,10 +48,16 @@ class SignupOrLoginSerializer(serializers.ModelSerializer):
         model = CustomUser
         fields = ['email']
 
+class UserProfileViewSerializer(serializers.Serializer):
+    profile = ProfileSerializer()
+    company = CompanySerializer()
 
+    def to_representation(self, instance):
+        user = instance
+        profile_data = Profile.objects.filter(user=user).first()
+        company_data = Company.objects.filter(user=user).first()
 
-
-
-
-
-# eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM0Nzc1MjIzLCJpYXQiOjE3MzM0NzkyMjMsImp0aSI6ImE0ODczMzRiMzE4MzQ4ZmM4NjNmMTc0YWNlYjc2ZDI5IiwidXNlcl9pZCI6IjQ2NWNkMmNmLWIyNDYtNDU3NS1iMjA3LTczYzJiZmY5ZWQwMSJ9._-z6L4sg2hp0921qLkXsfv5D9a0Wu0ZdbOvEj-srPRE
+        return {
+            'profile': ProfileSerializer(profile_data).data if profile_data else None,
+            'company': CompanySerializer(company_data).data if company_data else None
+        }

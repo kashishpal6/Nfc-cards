@@ -39,7 +39,7 @@ class OTP(models.Model):
         return f"OTP for {self.user.email}"
     
 class Profile(models.Model):
-    user=models.ForeignKey(CustomUser,on_delete=models.CASCADE,related_name="profile")
+    user=models.OneToOneField(CustomUser,on_delete=models.CASCADE,related_name="profile")
     fullName=models.CharField(max_length=250,default="null")
     dob=models.DateField(null=True)
     profile_pic=models.ImageField(upload_to="ProfileImages/",blank=True)
@@ -65,6 +65,7 @@ class Company(models.Model):
     
     def __str__(self):
         return self.companyName
+    
     
 
 

@@ -4,7 +4,7 @@ from .models import Products
 
 class productSerializer(serializers.ModelSerializer):
    product_id = serializers.CharField(source = "id")
-   service_id = serializers.CharField(source="service")
+   service_id = serializers.CharField(source="service.id")
 
    class Meta:
       model=Products

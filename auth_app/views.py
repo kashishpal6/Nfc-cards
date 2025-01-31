@@ -1,4 +1,4 @@
-from .serializers import OTPSerializer,ProfileSerializer,CompanySerializer,SignupOrLoginSerializer,SignupSerializer
+from .serializers import OTPSerializer,ProfileSerializer,CompanySerializer,SignupOrLoginSerializer,SignupSerializer,UserProfileViewSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from django.core.mail import send_mail
@@ -198,3 +198,20 @@ class DestroyCompany(generics.DestroyAPIView):
             return Profile.objects.get(user=self.request.user)
         except Profile.DoesNotExist:
             raise NotFound(detail="Profile not found")
+        
+class UserProfileView(generics.RetrieveAPIView):
+    serializer_class = UserProfileViewSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        user = self.request.user
+        profile_data = Profile.objects.filter(user=user).first()
+        company_data = Company.objects.filter(user=user).first()
+        if not profile_data:
+            raise NotFound(detail="Profile not found")
+        if not company_data:
+            raise NotFound(detail="Company not found")
+
+        return user
+
+
