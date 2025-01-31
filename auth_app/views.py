@@ -7,7 +7,7 @@ from django.template.loader import render_to_string
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated,AllowAny,IsAdminUser
-from rest_framework.exceptions import NotFound
+from rest_framework.exceptions import NotFound,PermissionDenied
 from django.core.exceptions import ObjectDoesNotExist
 
 class SignupOrLoginView(generics.CreateAPIView):
@@ -181,9 +181,10 @@ class UpdateCompany(generics.UpdateAPIView):
 
     def get_object(self):
         try:
-            return Company.objects.get(user=self.request.user)
-        except Company.DoesNotExist:
-            raise NotFound(detail="Company not found")
+            company = Company.objects.get(user=self.request.user)
+        except ObjectDoesNotExist:
+            company = Company.objects.create(user=self.request.user)
+        return company
 
     def perform_update(self, serializer):
         serializer.save(user=self.request.user)
@@ -198,20 +199,20 @@ class DestroyCompany(generics.DestroyAPIView):
             return Profile.objects.get(user=self.request.user)
         except Profile.DoesNotExist:
             raise NotFound(detail="Profile not found")
-        
+   
+
 class UserProfileView(generics.RetrieveAPIView):
     serializer_class = UserProfileViewSerializer
     permission_classes = [IsAuthenticated]
 
     def get_object(self):
         user = self.request.user
-        profile_data = Profile.objects.filter(user=user).first()
-        company_data = Company.objects.filter(user=user).first()
-        if not profile_data:
-            raise NotFound(detail="Profile not found")
-        if not company_data:
-            raise NotFound(detail="Company not found")
-
+        try:
+            user = CustomUser.objects.select_related('profile', 'company').get(id=user.id)
+        except CustomUser.DoesNotExist:
+            raise NotFound("User not found.")
+        if user != self.request.user:
+            raise PermissionDenied("You do not have permission to view this profile.")
         return user
 
 

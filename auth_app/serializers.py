@@ -49,16 +49,39 @@ class SignupOrLoginSerializer(serializers.ModelSerializer):
         model = CustomUser
         fields = ['email']
 
-class UserProfileViewSerializer(serializers.Serializer):
-    profile = ProfileSerializer()
-    company = CompanySerializer()
+# class UserProfileViewSerializer(serializers.Serializer):
+#     profile = ProfileSerializer()
+#     company = CompanySerializer()
 
-    def to_representation(self, instance):
-        user = instance
-        profile_data = Profile.objects.filter(user=user).first()
-        company_data = Company.objects.filter(user=user).first()
+#     def to_representation(self, instance):
+#         user = instance
+#         profile_data = Profile.objects.filter(user=user).first()
+#         company_data = Company.objects.filter(user=user).first()
 
-        return {
-            'profile': ProfileSerializer(profile_data).data if profile_data else None,
-            'company': CompanySerializer(company_data).data if company_data else None
-        }
+#         return {
+#             'profile': ProfileSerializer(profile_data).data if profile_data else None,
+#             'company': CompanySerializer(company_data).data if company_data else None
+#         }
+
+
+
+# class UserProfileViewSerializer(serializers.Serializer):
+#     profile = serializers.SerializerMethodField()
+#     company = serializers.SerializerMethodField()
+
+#     def get_profile(self, obj):
+#         profile_data = Profile.objects.filter(user=obj).first()
+#         return ProfileSerializer(profile_data).data if profile_data else {}
+
+#     def get_company(self, obj):
+#         company_data = Company.objects.filter(user=obj).first()
+#         return CompanySerializer(company_data).data if company_data else {}
+
+
+class UserProfileViewSerializer(serializers.ModelSerializer):
+    profile = ProfileSerializer(read_only=True)
+    company = CompanySerializer(read_only=True)
+
+    class Meta:
+        model = CustomUser
+        fields = ['profile', 'company']
