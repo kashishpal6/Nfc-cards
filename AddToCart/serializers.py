@@ -2,14 +2,14 @@ from .models import Cart
 from rest_framework import serializers
 
 class AddToCartSerializer(serializers.ModelSerializer):
-    Cart_id = serializers.CharField(source = "id")
+    Cart_id = serializers.IntegerField(source = "id")
     user = serializers.PrimaryKeyRelatedField(read_only=True)
     class Meta:
         model = Cart
         fields = ['user','Card_id','variant','front_data','back_data']
 
 class GetCartSerializer(serializers.ModelSerializer):
-    Cart_id = serializers.CharField(source = "id")
+    Cart_id = serializers.IntegerField(source = "id")
     user = serializers.PrimaryKeyRelatedField(read_only=True)
     color = serializers.SerializerMethodField()
     price = serializers.SerializerMethodField()

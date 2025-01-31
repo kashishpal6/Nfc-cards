@@ -2,7 +2,7 @@ from rest_framework import serializers
 from .models import Ticket
 
 class ticketSerializer(serializers.ModelSerializer):
-    ticket_id = serializers.CharField(source = "id")
+    ticket_id = serializers.IntegerField(source = "id")
 
     class Meta:
        model = Ticket

@@ -3,8 +3,8 @@ from .models import Products
 
 
 class productSerializer(serializers.ModelSerializer):
-   product_id = serializers.CharField(source = "id")
-   service_id = serializers.CharField(source="service.id")
+   product_id = serializers.IntegerField(source = "id")
+   service_id = serializers.IntegerField(source="service.id")
 
    class Meta:
       model=Products

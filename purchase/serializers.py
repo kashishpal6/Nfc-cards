@@ -2,7 +2,7 @@ from .models import Purchase
 from rest_framework import serializers
 
 class PurchaseSerializer(serializers.ModelSerializer):
-    Purchase_id = serializers.CharField(source = "id")
+    Purchase_id = serializers.IntegerField(source = "id")
     user = serializers.PrimaryKeyRelatedField(read_only=True)
     class Meta:
         model = Purchase
