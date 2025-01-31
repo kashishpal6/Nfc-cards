@@ -3,7 +3,9 @@ from .models import Products
 
 
 class productSerializer(serializers.ModelSerializer):
+   product_id = serializers.CharField(source = "id")
+   service_id = serializers.CharField(source="service")
 
    class Meta:
       model=Products
-      fields=['id','title','image','service','description','IsPremium']
+      fields=['product_id','title','image','service_id','description','IsPremium']

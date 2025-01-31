@@ -146,7 +146,7 @@ class DestroyProfile(generics.DestroyAPIView):
         try:
             return Profile.objects.get(user=self.request.user)
         except Profile.DoesNotExist:
-            raise NotFound(detail="Profile not found")
+            raise NotFound(detail="Profile delete successfully")
 
 class createCompany(generics.CreateAPIView):
    queryset=Company.objects.all()
