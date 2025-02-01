@@ -4,11 +4,12 @@ from auth_app.models import CustomUser
 
 class Wishlist(models.Model):
     user = models.ForeignKey(CustomUser,on_delete=models.CASCADE,related_name="wishlist_items")
-    variant = models.OneToOneField(variant,on_delete=models.CASCADE,related_name="wishlist_var")
+    variant_id= models.OneToOneField(variant,on_delete=models.CASCADE,related_name="wishlist_var")
 
 
     class Meta:
-      ordering =['variant']
+      ordering =['variant_id']
+      unique_together = ('user','variant_id')   
   
     def __str__(self):
-      return self.variant.product.title
+      return self.variant_id.product.title
