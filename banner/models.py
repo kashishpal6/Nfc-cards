@@ -1,7 +1,7 @@
 from django.db import models
 
 class Banners(models.Model):
-    type = models.CharField(max_length=50)
+    type=models.CharField(max_length=200,choices=[('home','Home Page'),('shop','Shop')])
     image = models.ImageField(upload_to="banners/images/")
 
     class Meta:
