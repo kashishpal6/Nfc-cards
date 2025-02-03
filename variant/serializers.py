@@ -3,7 +3,7 @@ from .models import variant
 
 
 class variantSerializer(serializers.ModelSerializer):
-   service_id = serializers.IntegerField(source = "id")
+   product_id = serializers.IntegerField(source = "id",read_only = True)
 
    class Meta:
       model=variant

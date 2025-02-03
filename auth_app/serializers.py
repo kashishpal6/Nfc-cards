@@ -42,7 +42,7 @@ class SignupSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CustomUser
-        fields = ['fullName','id', 'email',]
+        fields = ['id', 'email',]
 
 class SignupOrLoginSerializer(serializers.ModelSerializer):
     class Meta:

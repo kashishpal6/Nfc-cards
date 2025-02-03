@@ -23,7 +23,7 @@ class SignupOrLoginView(generics.CreateAPIView):
             otp.generate_otp()
             otp.save()
             html_message = render_to_string('otp_email_template.html',
-                                            {'otp_code': otp.otp_code, 'user_name': user.first_name})
+                                            {'otp_code': otp.otp_code})
             send_mail(
                 subject="Your OTP Code",
                 message=f"Your OTP code is {otp.otp_code}",
@@ -41,7 +41,7 @@ class SignupOrLoginView(generics.CreateAPIView):
                 otp.save()
                 html_message = render_to_string(
                     'otp_email_template.html',
-                    {'otp_code': otp.otp_code, 'user_name': user.first_name})
+                    {'otp_code': otp.otp_code})
                 send_mail(
                     subject="Your OTP Code",
                     message=f"Your OTP code is {otp.otp_code}",
@@ -202,17 +202,10 @@ class DestroyCompany(generics.DestroyAPIView):
    
 
 class UserProfileView(generics.RetrieveAPIView):
+    queryset = CustomUser.objects.all()
     serializer_class = UserProfileViewSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
-    def get_object(self):
-        user = self.request.user
-        try:
-            user = CustomUser.objects.select_related('profile', 'company').get(id=user.id)
-        except CustomUser.DoesNotExist:
-            raise NotFound("User not found.")
-        if user != self.request.user:
-            raise PermissionDenied("You do not have permission to view this profile.")
-        return user
+    
 
 

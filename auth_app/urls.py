@@ -17,6 +17,6 @@ urlpatterns = [
     path('RetrieveCompany/',RetrieveCompany.as_view(),name="RetrieveCompany"),
     path('UpdateCompany/',UpdateCompany.as_view(),name="UpdateCompany"),
     path('DestroyCompany/',DestroyCompany.as_view(),name="DestroyCompany"),
-    path('UserProfileView/',UserProfileView.as_view(),name="UserProfileView")
+    path('UserProfileView/<uuid:pk>/',UserProfileView.as_view(),name="UserProfileView")
 ]
 
