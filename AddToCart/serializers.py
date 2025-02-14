@@ -1,5 +1,6 @@
 from .models import Cart
 from rest_framework import serializers
+from django.conf import settings
 
 class AddToCartSerializer(serializers.ModelSerializer):
     Cart_id = serializers.IntegerField(source = "id",read_only=True)
@@ -26,8 +27,17 @@ class GetCartSerializer(serializers.ModelSerializer):
     def get_price(self, obj):
         return obj.variant.price
     
-    def get_front_image(self, obj):
-        return obj.variant.front_image.url
+  
     
+
+    def get_front_image(self, obj):
+        base_url = "http://127.0.0.1:8000/"  # Replace with your actual base URL
+        if obj.variant.front_image:
+            return f"{base_url}{obj.variant.front_image.url}"
+        return None
+
     def get_back_image(self, obj):
-        return obj.variant.back_image.url
+        base_url = "http://127.0.0.1:8000/"  # Replace with your actual base URL
+        if obj.variant.back_image:
+            return f"{base_url}{obj.variant.back_image.url}"
+        return None
