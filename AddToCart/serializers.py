@@ -27,17 +27,10 @@ class GetCartSerializer(serializers.ModelSerializer):
     def get_price(self, obj):
         return obj.variant.price
     
-  
-    
-
     def get_front_image(self, obj):
-        base_url = "http://127.0.0.1:8000/"  # Replace with your actual base URL
-        if obj.variant.front_image:
-            return f"{base_url}{obj.variant.front_image.url}"
-        return None
-
+        return f"{"http://127.0.0.1:8000/"}{obj.variant.front_image.url}"
+    
     def get_back_image(self, obj):
-        base_url = "http://127.0.0.1:8000/"  # Replace with your actual base URL
-        if obj.variant.back_image:
-            return f"{base_url}{obj.variant.back_image.url}"
-        return None
+        return f"{"http://127.0.0.1:8000/"}{obj.variant.back_image.url}"
+
+  
